@@ -1,0 +1,7 @@
+<div *ngFor="let node of treeData" class="relative">
+  <label [className]="node.children ? 'accordion' : 'accordion active'" (click)="expandChild($event)">
+    {{node.name}}
+  </label>
+  <button (click)="callback.action(node)">Select</button>
+  <app-dropdown-tree class="panel" [treeData]="node.children"  [callback]="callback"></app-dropdown-tree>
+</div>

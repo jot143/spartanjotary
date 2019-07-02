@@ -1,0 +1,7 @@
+﻿<div *ngIf="message" class="alert-outer">
+  <div style="text-align: center">
+    <div style="display: inline-block" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">
+      {{message.text}}
+    </div>
+  </div>
+</div>

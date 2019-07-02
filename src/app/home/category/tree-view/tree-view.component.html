@@ -1,0 +1,6 @@
+<div *ngFor="let node of treeData">
+  <label [className]="node.children ? 'accordion' : 'accordion active'" (click)="expandChild($event)">
+    {{node.name}}
+  </label>
+  <app-tree-view class="panel" [treeData]="node.children"></app-tree-view>
+</div>

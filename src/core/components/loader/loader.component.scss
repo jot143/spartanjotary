@@ -1,0 +1,38 @@
+.loader-outer{
+  position: fixed;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+
+  .loader-flex{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    .loader-box-outer{
+      .loader-box{
+        color: #fff;
+        border-radius: 3px;
+        padding: 0 10px;
+        width: auto;
+        height: auto;
+        text-transform: capitalize;
+        display: flex;
+        .icon{
+          width: 70px;
+        }
+        .text{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0 10px;
+        }
+      }
+    }
+
+  }
+}
