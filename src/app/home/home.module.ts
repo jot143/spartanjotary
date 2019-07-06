@@ -8,13 +8,12 @@ import { HomeComponent } from './home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CategoryComponent } from './category/category.component';
-import { TreeViewComponent } from './category/tree-view/tree-view.component';
-import { DropdownTreeComponent } from './category/dropdown-tree/dropdown-tree.component';
+
 
 @NgModule({
   declarations: [HomeComponent, NavbarComponent,
-    SidebarComponent, DashboardComponent, CategoryComponent, TreeViewComponent, DropdownTreeComponent],
+    SidebarComponent, DashboardComponent
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,

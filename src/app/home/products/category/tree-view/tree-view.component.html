@@ -1,0 +1,10 @@
+<div *ngFor="let node of treeData"  class="relative">
+  <label [className]="node.children ? 'accordion' : 'accordion active'" (click)="expandChild($event)">
+    {{node.name}}
+  </label>
+  <div class="actionBtn">
+    <button (click)="callback.edit(node)" data-toggle="modal" data-target="#editModal">Edit</button>
+    <button (click)="callback.delete(node)">Delete</button>
+  </div>
+  <app-tree-view class="panel" [treeData]="node.children" [callback]="callback"></app-tree-view>
+</div>

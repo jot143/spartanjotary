@@ -7,8 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import {AlertComponent, LoaderComponent} from '../core/components';
-
-
+import { ProductsModule } from './home/products/products.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,9 @@ import {AlertComponent, LoaderComponent} from '../core/components';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    FormsModule,
+    HttpClientModule,
+    ProductsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

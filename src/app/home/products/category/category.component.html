@@ -1,0 +1,123 @@
+<div class="content-wrapper">
+  <!-- The Modal -->
+    <div class="modal" id="addModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Add new category</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <div class="auto-form-wrapper">
+                  <form>
+                    <div class="form-group">
+                      <label class="label">Parnet Category</label>
+                      <div class="input-group">
+                        <input type="text" [(ngModel)]="parentsearch" autocomplete="off" name="parentsearch" (keyup)="autocomplete()" class="form-control" placeholder="No Parnet">
+                        <div class="search-list">
+                          <app-dropdown-tree class="list"  [treeData]="parentsearchList" [callback]="callback" >
+                          </app-dropdown-tree>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="label">Category Name</label>
+                      <div class="input-group">
+                        <input type="text" [(ngModel)]="cat.name" name="name" class="form-control" placeholder="Category Name" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-primary submit-btn btn-block" (click)="add()">Add</button>
+                    </div>
+                  </form>
+                </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal" id="editModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Edit category</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <div class="auto-form-wrapper">
+                  <form>
+                    <div class="form-group">
+                      <label class="label">Parnet Category</label>
+                      <div class="input-group">
+                        <input type="text" [(ngModel)]="parentsearch" autocomplete="off" name="parentsearch" (keyup)="autocomplete()" class="form-control" placeholder="No Parnet">
+                        <div class="search-list">
+                          <app-dropdown-tree class="list"  [treeData]="parentsearchList" [callback]="callback" >
+                          </app-dropdown-tree>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="label">Category Name</label>
+                      <div class="input-group">
+                        <input type="text" [(ngModel)]="editCat.name" name="name" class="form-control" placeholder="Category Name" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-primary submit-btn btn-block" (click)="edit()">Edit</button>
+                    </div>
+                  </form>
+                </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <!-- New Modal End -->
+
+  <!-- Page Title Header Starts-->
+  <div class="row page-title-header">
+    <div class="col-12">
+      <div class="page-header">
+        <h4 class="page-title">Category</h4>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="page-header-toolbar">
+          <button type="button" class="btn btn-primary toolbar-item" data-toggle="modal" data-target="#addModal">New</button>
+      </div>
+    </div>
+  </div>
+  <!-- Page Title Header Ends-->
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Test -->
+      <div  #catList id="catList">
+        <app-tree-view *ngIf="productService.categories.length > 0" [treeData]="productService.categories" [callback]="callback"></app-tree-view>
+        <div style="text-align: center" *ngIf="productService.categories.length == 0">No Category</div>
+        <div class="refresh" *ngIf="productService.categories.length == 0" (click)="productService.getCategories()">
+          <button class="refresh-button"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

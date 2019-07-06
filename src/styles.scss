@@ -1,34 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
 @import '_variables.scss';
 
-app-sidebar{
+app-sidebar {
   background: linear-gradient(to top, #5768f3, #1c45ef);
 }
-.main-panel{
-  background: #F3F3F3 !important;
+
+.navbar.default-layout .navbar-brand-wrapper{
+  width: 190px !important;
 }
-.sidebar{
+
+.navbar.default-layout .navbar-menu-wrapper{
+  width: calc(100% - 190px);
+}
+
+.main-panel {
+  background: #F3F3F3 !important;
+  width: calc(100% - 190px) !important;
+}
+
+@media only screen and (max-width: 991px)
+{
+  .main-panel {
+    width: 100% !important;
+  }
+}
+
+.sidebar {
+  width: 190px !important;
   background: transparent !important;
 }
 
-.search-list{
+
+.search-list {
   position: absolute;
   top: 100%;
   // border: 1px solid #d5d5d5;
   width: 100%;
   background: #fff;
   z-index: 9999;
-  .list{
+
+  .list {
     // padding: 5px 10px;
     cursor: pointer;
-    &:nth-child(odd){
+
+    &:nth-child(odd) {
       background: #eee;
     }
-    &:nth-child(even)
-    {
+
+    &:nth-child(even) {
       background: #fff;
     }
-    &:hover{
+
+    &:hover {
       background: #ddd;
     }
   }
@@ -48,7 +71,8 @@ app-sidebar{
   }
 
 
-  .active, .accordion:hover {
+  .active,
+  .accordion:hover {
     border: 1px solid $secondary-light;
     color: $secondary-light;
     background: transparent;
@@ -59,9 +83,12 @@ app-sidebar{
     display: none;
     overflow: hidden;
   }
-  .relative{
+
+  .relative {
     position: relative;
-    & > button{
+
+
+    &>button {
       position: absolute;
       right: 0;
       top: 0;
@@ -73,17 +100,64 @@ app-sidebar{
       z-index: 99999;
       display: none;
 
-      &:hover{
+      &:hover {
         display: block;
       }
     }
 
-    & > .accordion{
-      &:hover ~ button {
-          display: block;
-        }
+    &>.accordion {
+      &:hover~button {
+        display: block;
+      }
     }
   }
 }
 
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 
+.refresh {
+  width: 100%;
+  height: 70px;
+  margin: 20px 0;
+  text-align: center;
+  .refresh-button {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    background: url('./assets/loader/refresh.svg');
+    background-size: contain;
+    background-position: center;
+    box-shadow: 0px 0px 10px #000;
+    border-radius: 50%;
+    background-size: 70%;
+    background-position: center;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    &:hover {
+      -webkit-animation: rotating 2s linear infinite;
+      -moz-animation: rotating 2s linear infinite;
+      -ms-animation: rotating 2s linear infinite;
+      -o-animation: rotating 2s linear infinite;
+      animation: rotating 2s linear infinite;
+    }
+    &:focus,&:active{
+      box-shadow: none;
+    }
+  }
+}
