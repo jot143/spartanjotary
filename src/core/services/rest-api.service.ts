@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { AlertService } from '../components';
+import { AlertService, LoaderService } from '../components';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,9 @@ import { AlertService } from '../components';
 export class RestApiService {
 
   apiUrl = 'http://localhost/repo/jobtoryapi';
-  constructor(private http: HttpClient, public alertService: AlertService) { }
+  constructor(private http: HttpClient,
+              public alertService: AlertService,
+              public loaderService: LoaderService) { }
 
   get(endpoint: string) {
       return this.http.get(`${this.apiUrl}${endpoint}`).pipe(
@@ -20,6 +22,7 @@ export class RestApiService {
         }),
         catchError((e: any) => {
           console.log(e);
+          this.loaderService.dismiss();
           this.alertService.error('Internet or technical error. Error:' + e.name);
           return throwError(e);
         }),
@@ -34,6 +37,7 @@ export class RestApiService {
         }),
         catchError((e: any) => {
           console.log(e);
+          this.loaderService.dismiss();
           this.alertService.error('Internet or technical error. Error:' + e.name);
           return throwError(e);
         }),
@@ -48,20 +52,22 @@ export class RestApiService {
         }),
         catchError((e: any) => {
           console.log(e);
+          this.loaderService.dismiss();
           this.alertService.error('Internet or technical error. Error:' + e.name);
           return throwError(e);
         }),
       );
   }
 
-  delete(endpoint: string) {
-      return this.http.get(`${this.apiUrl}/${endpoint}`).pipe(
+  delete(endpoint: string, data: any) {
+      return this.http.delete(`${this.apiUrl}${endpoint}`, data).pipe(
         map((response) => {
           console.log(response);
           return response;
         }),
         catchError((e: any) => {
           console.log(e);
+          this.loaderService.dismiss();
           this.alertService.error('Internet or technical error. Error:' + e.name);
           return throwError(e);
         }),

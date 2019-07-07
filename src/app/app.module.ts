@@ -10,6 +10,7 @@ import {AlertComponent, LoaderComponent} from '../core/components';
 import { ProductsModule } from './home/products/products.module';
 import { FormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [
     AppComponent,

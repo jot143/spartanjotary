@@ -17,6 +17,7 @@ export class CategoryComponent implements OnInit {
   };
 
   editCat: any = { name: '' };
+  viewCat: any = {};
 
   parentsearch = '';
   parentsearchList = [];
@@ -36,15 +37,11 @@ export class CategoryComponent implements OnInit {
       this.parentsearch = this.selectedParent.name;
     },
     delete: (x: any) => {
-      console.log(x);
-      this.cat.parent_id = x.parent_id;
-      this.cat.name = x.name;
-
+      this.viewCat = Object.assign({}, x);
       this.selectedParent = this.searchCatById(x.parent_id);
-      this.parentsearch = this.selectedParent.name;
-
-      this.dom.nativeElement.querySelector('#addModal').className = 'modal show';
-      this.dom.nativeElement.querySelector('#addModal').style.display = 'block';
+      if (this.selectedParent === false) {
+        this.selectedParent = {name: 'No Parent'};
+      }
     }
   };
   constructor(
@@ -108,7 +105,6 @@ export class CategoryComponent implements OnInit {
 
 
   add() {
-    console.log(this.cat);
     if (this.cat.name.length === 0) {
       this.alertService.error('Please fill proper category name'); return;
     }
@@ -119,6 +115,10 @@ export class CategoryComponent implements OnInit {
       this.loaderService.dismiss();
       if (res && res.status && res.status === 'success') {
         if (this.selectedParent.id !== 0) {
+          // tslint:disable-next-line:triple-equals
+          if (typeof this.selectedParent.children == 'undefined') {
+            this.selectedParent.children = [];
+          }
           this.selectedParent.children.push({ id: res.data, name: this.cat.name, parent_id: this.cat.parent_id });
         } else {
           this.productService.categories.push({ id: res.data, name: this.cat.name, parent_id: this.cat.parent_id });
@@ -129,8 +129,10 @@ export class CategoryComponent implements OnInit {
           name: ''
         };
 
-        this.dom.nativeElement.querySelector('data-dismiss="modal"').className = 'modal';
-        this.dom.nativeElement.querySelector('#addModal').style.display = 'none';
+        const models = this.dom.nativeElement.querySelectorAll('button[data-dismiss="modal"]');
+        for (const x of models) {
+          x.click();
+        }
         this.alertService.success(res.msg);
       } else {
         this.alertService.error(res.msg);
@@ -172,24 +174,6 @@ export class CategoryComponent implements OnInit {
     };
 
 
-
-    // const getParent = (ary: any, id, parent = null) => {
-    //   for (const x of ary) {
-    //     // tslint:disable-next-line:triple-equals
-    //     if (id == x.id) {
-    //       return parent;
-
-    //     }
-
-    //     if (x.children) {
-    //       return getParent(x, x.children, id);
-    //     }
-
-    //     return null;
-    //   }
-    // };
-
-
     if (this.editCat.children) {
       searchInChildren(this.editCat.children);
       // if (isChildren === 1) {
@@ -209,6 +193,27 @@ export class CategoryComponent implements OnInit {
 
     this.loaderService.start('Please Wait...', true);
     const response = this.restapi.update('/?object=product&action=updateCategories', parameter);
+    response.subscribe((res: any) => {
+      this.loaderService.dismiss();
+      if (res && res.status && res.status === 'success') {
+        this.productService.categories = this.productService.getNestedChildren(res.data, 0);
+
+        const models = this.dom.nativeElement.querySelectorAll('button[data-dismiss="modal"]');
+        for (const x of models) {
+          x.click();
+        }
+        this.alertService.success(res.msg);
+      } else {
+        this.alertService.error(res.msg);
+      }
+    });
+  }
+
+
+  delete(cat) {
+    console.log(cat);
+    this.loaderService.start('Please Wait...', true);
+    const response = this.restapi.update('/?object=product&action=deleteCategories', cat);
     response.subscribe((res: any) => {
       this.loaderService.dismiss();
       if (res && res.status && res.status === 'success') {

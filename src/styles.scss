@@ -27,7 +27,6 @@ app-sidebar {
 
 .sidebar {
   width: 190px !important;
-  background: transparent !important;
 }
 
 
@@ -159,5 +158,35 @@ app-sidebar {
     &:focus,&:active{
       box-shadow: none;
     }
+  }
+}
+
+.table td, .table th{
+  white-space: normal !important;
+  font-size: 12px !important;
+}
+
+
+.actionIcon{
+  display: flex; font-size:24px !important;padding:0 !important;cursor: pointer;
+  i:last-child {
+    margin: 0 10px 0 0;
+  }
+  i{
+    margin: 0 10px;
+  }
+  i:first-child {
+    margin: 0 0 0 10px;
+  }
+  .fa-trash{
+    color: red;
+  }
+
+  .fa-edit{
+    color: orange;
+  }
+
+  .fa-info-circle{
+    color: green;
   }
 }

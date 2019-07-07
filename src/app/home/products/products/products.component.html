@@ -1,3 +1,461 @@
-<p>
-  products works!
-</p>
+<div class="content-wrapper">
+  <!-- The Add Modal -->
+  <div class="modal" id="addModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add new product</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="auto-form-wrapper">
+            <form>
+              <div class="form-group">
+                <label class="label">Category</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="parentsearch" autocomplete="off" name="parentsearch"
+                    (keyup)="autocomplete()" class="form-control" placeholder="No Category">
+                  <div class="search-list">
+                    <app-dropdown-tree class="list" [treeData]="parentsearchList" [callback]="callback">
+                    </app-dropdown-tree>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Product Name</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="newproduct.name" name="name" class="form-control"
+                    placeholder="Product Name" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">CODE/SKU</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="newproduct.sku" name="sku" class="form-control"
+                    placeholder="CODE/SKU" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Size</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="newproduct.size" name="size" class="form-control"
+                    placeholder="Size" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Color</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="newproduct.color" name="color" class="form-control"
+                    placeholder="Color" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Quanity In</label>
+                <div class="input-group">
+                  <select [(ngModel)]="newproduct.quantityin" name="quantityin" class="form-control"
+                    placeholder="Quanity In">
+                    <option value="">None</option>
+                    <option value="Pcs">Pcs</option>
+                    <option value="DZ">DZ</option>
+                    <option value="Pair">Pair</option>
+                    <option value="SET">SET</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">EAN</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="newproduct.ean" name="ean" class="form-control" placeholder="EAN" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">HSN</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="newproduct.hsn" name="hsn" class="form-control" placeholder="HSN" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">GST Percentage</label>
+                <select [(ngModel)]="newproduct.gstpercentage" name="gstpercentage" class="form-control"
+                  placeholder="Quanity In">
+                  <option value="0">0%</option>
+                  <option value="5">5%</option>
+                  <option value="12">12%</option>
+                  <option value="18">18%</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="label">Dealer Price</label>
+                <div class="input-group">
+                  <input type="number" [(ngModel)]="newproduct.dealprice" name="dealprice" class="form-control"
+                    placeholder="Dealer Price" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">MRP</label>
+                <div class="input-group">
+                  <input type="number" [(ngModel)]="newproduct.mrp" name="mrp" class="form-control" placeholder="MRP" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Description</label>
+                <div class="input-group">
+                  <textarea [(ngModel)]="newproduct.description" name="description" class="form-control" placeholder="Description" ></textarea>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <button class="btn btn-primary submit-btn btn-block" (click)="add()">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- The Edit Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit product</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="auto-form-wrapper">
+            <form>
+              <div class="form-group">
+                <label class="label">Category</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="parentsearch" autocomplete="off" name="parentsearch"
+                    (keyup)="autocomplete()" class="form-control" placeholder="No Category">
+                  <div class="search-list">
+                    <app-dropdown-tree class="list" [treeData]="parentsearchList" [callback]="callback">
+                    </app-dropdown-tree>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Product Name</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="editproduct.name" name="name" class="form-control"
+                    placeholder="Product Name" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">CODE/SKU</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="editproduct.sku" name="sku" class="form-control"
+                    placeholder="CODE/SKU" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Size</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="editproduct.size" name="size" class="form-control"
+                    placeholder="Size" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Color</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="editproduct.color" name="color" class="form-control"
+                    placeholder="Color" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">Quanity In</label>
+                <div class="input-group">
+                  <select [(ngModel)]="editproduct.quantityin" name="quantityin" class="form-control"
+                    placeholder="Quanity In">
+                    <option value="">None</option>
+                    <option value="Pcs">Pcs</option>
+                    <option value="DZ">DZ</option>
+                    <option value="Pair">Pair</option>
+                    <option value="SET">SET</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">EAN</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="editproduct.ean" name="ean" class="form-control" placeholder="EAN" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">HSN</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="editproduct.hsn" name="hsn" class="form-control" placeholder="HSN" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">GST Percentage</label>
+                <select [(ngModel)]="editproduct.gstpercentage" name="gstpercentage" class="form-control"
+                  placeholder="Quanity In">
+                  <option value="0">0%</option>
+                  <option value="5">5%</option>
+                  <option value="12">12%</option>
+                  <option value="18">18%</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="label">Dealer Price</label>
+                <div class="input-group">
+                  <input type="number" [(ngModel)]="editproduct.dealprice" name="dealprice" class="form-control"
+                    placeholder="Dealer Price" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label">MRP</label>
+                <div class="input-group">
+                  <input type="number" [(ngModel)]="editproduct.mrp" name="mrp" class="form-control"
+                    placeholder="MRP" />
+                </div>
+              </div>
+
+               <div class="form-group">
+                <label class="label">Description</label>
+                <div class="input-group">
+                  <textarea [(ngModel)]="editproduct.description" name="description" class="form-control" placeholder="Description" ></textarea>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <button class="btn btn-primary submit-btn btn-block" (click)="edit()">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- View Modal -->
+  <div class="modal" id="viewModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Product Detail</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="auto-form-wrapper">
+            <table class="table table-hover table-bordered table-striped">
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>{{ viewproduct.name }}</td>
+                </tr>
+                <tr>
+                  <td>Code/SKU</td>
+                  <td>{{ viewproduct.sku }}</td>
+                </tr>
+                <tr>
+                  <td>Size/Color</td>
+                  <td>{{ viewproduct.size }} {{ viewproduct.color }}</td>
+                </tr>
+                <tr>
+                  <td>GST</td>
+                  <td>{{ viewproduct.gstpercentage }}</td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                  <td>{{ productService.getTree(viewproduct.category_id) | async }}</td>
+                </tr>
+                <tr>
+                  <td>HSN</td>
+                  <td>{{ viewproduct.hsn }}</td>
+                </tr>
+                <tr>
+                  <td>EAN</td>
+                  <td>{{ viewproduct.ean }}</td>
+                </tr>
+                <tr>
+                  <td>Dealer Price</td>
+                  <td>₹ {{ viewproduct.dealprice }}</td>
+                </tr>
+                <tr>
+                  <td>MRP</td>
+                  <td>₹ {{ viewproduct.mrp}}</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{{ viewproduct.description}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Product Detail</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="auto-form-wrapper">
+            <table class="table table-hover table-bordered table-striped">
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>{{ viewproduct.name }}</td>
+                </tr>
+                <tr>
+                  <td>Code/SKU</td>
+                  <td>{{ viewproduct.sku }}</td>
+                </tr>
+                <tr>
+                  <td>Size/Color</td>
+                  <td>{{ viewproduct.size }} {{ viewproduct.color }}</td>
+                </tr>
+                <tr>
+                  <td>GST</td>
+                  <td>{{ viewproduct.gstpercentage }}</td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                  <td>{{ productService.getTree(viewproduct.category_id) | async }}</td>
+                </tr>
+                <tr>
+                  <td>HSN</td>
+                  <td>{{ viewproduct.hsn }}</td>
+                </tr>
+                <tr>
+                  <td>EAN</td>
+                  <td>{{ viewproduct.ean }}</td>
+                </tr>
+                <tr>
+                  <td>Dealer Price</td>
+                  <td>₹ {{ viewproduct.dealprice }}</td>
+                </tr>
+                <tr>
+                  <td>MRP</td>
+                  <td>₹ {{ viewproduct.mrp}}</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{{ viewproduct.description}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          Are you sure to delete? &nbsp;
+          <button type="button" class="btn btn-primary" (click)="delete(viewproduct)">Delete</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal End -->
+
+  <!-- Page Title Header Starts-->
+  <div class="row page-title-header">
+    <div class="col-12">
+      <div class="page-header">
+        <h4 class="page-title">Product List</h4>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="page-header-toolbar">
+        <button type="button" class="btn btn-primary toolbar-item" data-toggle="modal"
+          data-target="#addModal">New</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Page Title Header Ends-->
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="card-title">Hoverable Table</h4> -->
+          <!-- <p class="card-description"> Add class <code>.table-hover</code> </p> -->
+          <table class="table table-hover table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Code</th>
+                <th>Product</th>
+                <th>Size/Color</th>
+                <th>HSN</th>
+                <th>GST</th>
+                <th>Category</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="(productService.$products | async) as products; else loading">
+              <tr *ngFor="let x of products; let i = index">
+                <td style="width: 50px">{{ i+1 }}</td>
+                <td style="width: 50px">{{ x.sku }}</td>
+                <td style="width: 250px">{{ x.name }}</td>
+                <td style="width: 50px">{{ x.size }} {{ x.color }}</td>
+                <td style="width: 100px">{{ x.hsn }}</td>
+                <td style="width: 50px">{{ x.gstpercentage }}%</td>
+                <td style="font-size:12px">{{ productService.getTree(x.category_id) | async }}</td>
+                <td style="padding:0">
+                  <div class="actionIcon">
+                    <i class="fa fa-info-circle" data-toggle="modal" data-target="#viewModal" (click)="viewMe(x)"></i>
+                    <i class="fa fa-edit" data-toggle="modal" data-target="#editModal" (click)="editMe(x)"></i>
+                    <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal" (click)="deleteMe(x)"></i>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="products.length == 0">
+                <td colspan="8">No Products</td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #loading>
+            <div>Loading...</div>
+          </ng-template>
+          <div class="refresh" *ngIf="productService.products.length == 0"
+            (click)="productService.$products = productService.getProducts()">
+            <button class="refresh-button"></button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
