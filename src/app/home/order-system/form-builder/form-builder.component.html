@@ -1,0 +1,68 @@
+<form>
+  <span *ngFor="let form of formData | keyvalue | orderBy: 'value.order'">
+    <div class="form-group"
+      *ngIf="((!form.value.if) || (form.value.if && form.value.if(formData))) && ((form.value.name && form.value.name.length > 0) || !form.value.name)">
+
+      <label class="label">{{ form.value.name }}</label>
+      <div class="input-group">
+        <input type="text" *ngIf="form.value.type == 'text'" [(ngModel)]="form.value.value" name="{{ form.key }}"
+          class="form-control" placeholder="" />
+
+        <input type="number" *ngIf="form.value.type == 'number'" [(ngModel)]="form.value.value" name="{{ form.key }}"
+          class="form-control" placeholder="" />
+
+        <textarea *ngIf="form.value.type == 'textarea'" [(ngModel)]="form.value.value" name="{{ form.key }}"
+          class="form-control" placeholder=""></textarea>
+
+        <span *ngIf="form.value.type == 'radio'">
+          <span *ngFor="let option of form.value.option">
+            <input type="radio" [(ngModel)]="form.value.value" name="{{ form.key }}"
+              value="{{ option.key }}" />{{ option.value }}
+          </span>
+        </span>
+
+        <span *ngIf="form.value.type == 'autocomplete'" style="width:100%">
+          <div class="input-group">
+            <input type="text" [(ngModel)]="form.value.typing" autocomplete="off" name="parentsearch"
+              (keyup)="autocomplete(form.value)" class="form-control" placeholder="No Category">
+            <div class="search-list">
+              <div class="list">
+                <div *ngFor="let node of form.value.searchList" class="relative">
+                  <label class="accordion active" (click)="form.value.callback(node, form.value)">
+                    {{node.name}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+
+        <span *ngIf="form.value.type == 'multipleChildren'" style="width:100%">
+          <div class="modal" id="ChildModal{{ form.key }}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">{{ form.value.buttonName }}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <div class="auto-form-wrapper">
+                    <app-form-builder formData="form.value.value.value()"></app-form-builder>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary toolbar-item" data-toggle="modal"
+          [attr.data-target]="'#ChildModal' + form.key ">{{ form.value.buttonName  }}</button>
+        </span>
+      </div>
+
+    </div>
+  </span>
+
+  <div class="form-group">
+    <button class="btn btn-primary submit-btn btn-block" (click)="add()">Add</button>
+  </div>
+</form>

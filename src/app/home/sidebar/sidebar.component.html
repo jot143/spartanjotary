@@ -30,10 +30,70 @@
         <div class="collapse" id="products">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item">
-                  <a class="nav-link" routerLink="/products">All</a>
+                  <a class="nav-link" routerLink="/home/products">All</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/products/categories">Category</a>
+              <a class="nav-link" routerLink="/home/products/categories">Category</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#persons" aria-expanded="false" aria-controls="products">
+          <i class="menu-icon typcn typcn-coffee"></i>
+          <span class="menu-title">Companies</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="persons">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                  <a class="nav-link" routerLink="/home/persons">All</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" routerLink="/home/persons/categories">Category</a>
+            </li> -->
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#inventory" aria-expanded="false" aria-controls="products">
+          <i class="menu-icon typcn typcn-coffee"></i>
+          <span class="menu-title">Inventory</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="inventory">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                  <a class="nav-link" routerLink="/home/inventory">All</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" routerLink="/home/persons/categories">Category</a>
+            </li> -->
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#ordersystem" aria-expanded="false" aria-controls="products">
+          <i class="menu-icon typcn typcn-coffee"></i>
+          <span class="menu-title">Order System</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="ordersystem">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                  <a class="nav-link" routerLink="/home/order-system/challanin">Challan In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/home/order-system/challanout">Challan Out</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/home/order-system/purcahse">Purchase Order</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/home/order-system/sale">Sale Order</a>
             </li>
           </ul>
         </div>

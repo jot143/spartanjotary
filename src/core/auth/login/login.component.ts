@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       if (res.status === 'success') {
         this.alertService.success(res.message, true);
         this.router.navigate(['home']);
-        return true;
+        return;
       }
 
       this.alertService.error(res.message);

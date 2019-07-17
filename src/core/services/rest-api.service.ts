@@ -10,6 +10,7 @@ import { AlertService, LoaderService } from '../components';
 export class RestApiService {
 
   apiUrl = 'http://localhost/repo/jobtoryapi';
+  // apiUrl = 'http://spartan.rcubinity.com/api';
   constructor(private http: HttpClient,
               public alertService: AlertService,
               public loaderService: LoaderService) { }

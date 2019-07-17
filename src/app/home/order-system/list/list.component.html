@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <!-- <h4 class="card-title">Hoverable Table</h4> -->
+        <!-- <p class="card-description"> Add class <code>.table-hover</code> </p> -->
+        <!-- <table class="table table-hover table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Code</th>
+              <th>Product</th>
+              <th>Size/Color</th>
+              <th>HSN</th>
+              <th>GST</th>
+              <th>Category</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="(productService.$products | async) as products; else loading">
+            <tr *ngFor="let x of products; let i = index">
+              <td style="width: 50px">{{ i+1 }}</td>
+              <td style="width: 50px">{{ x.sku }}</td>
+              <td style="width: 250px">{{ x.name }}</td>
+              <td style="width: 50px">{{ x.size }} {{ x.color }}</td>
+              <td style="width: 100px">{{ x.hsn }}</td>
+              <td style="width: 50px">{{ x.gstpercentage }}%</td>
+              <td style="font-size:12px">{{ productService.getTree(x.category_id) | async }}</td>
+              <td style="padding:0">
+                <div class="actionIcon">
+                  <i class="fa fa-info-circle" data-toggle="modal" data-target="#viewModal" (click)="viewMe(x)"></i>
+                  <i class="fa fa-edit" data-toggle="modal" data-target="#editModal" (click)="editMe(x)"></i>
+                  <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal" (click)="deleteMe(x)"></i>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="products.length == 0">
+              <td colspan="8">No Products</td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #loading>
+          <div>Loading...</div>
+        </ng-template>
+        <div class="refresh" *ngIf="productService.products.length == 0"
+          (click)="productService.$products = productService.getProducts()">
+          <button class="refresh-button"></button>
+        </div> -->
+      </div>
+    </div>
+
+
+  </div>
+</div>

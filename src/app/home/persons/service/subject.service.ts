@@ -1,24 +1,28 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+
 import { RestApiService } from 'src/core/services/rest-api.service';
-import { async, Promise } from 'q';
-import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import { AlertService } from 'src/core/components';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class SubjectService {
   categories = [];
   $categories: Observable<any>;
-  products = [];
-  $products: Observable<any>;
+  subjects = [];
+  $subjects: Observable<any>;
   categoriesLinear = [];
   $categoriesLinear: Observable<any>;
 
+  viewproduct: any = {};
+  editproduct: any = {};
+  deleteproduct: any = {};
+
   constructor(public restapi: RestApiService, public alertService: AlertService) {
-    this.$categoriesLinear = this.getCategories();
-    this.$products = this.getProducts();
+    // this.$categoriesLinear = this.getCategories();
+    this.$subjects = this.getAll();
   }
 
   getNestedChildren(arr, parentId) {
@@ -60,7 +64,7 @@ export class ProductService {
   }
 
   getCategories() {
-    const response = this.restapi.get('/?object=product&action=getAllCategories');
+    const response = this.restapi.get('/?object=person&action=getAllCategories');
     response.subscribe((res: any) => {
       if (res && res.status && res.status === 'success') {
         this.categoriesLinear = res.data;
@@ -70,13 +74,13 @@ export class ProductService {
     return response;
   }
 
-  getProducts() {
-    const response = this.restapi.get('/?object=product&action=getAllProducts').pipe(
+  getAll() {
+    const response = this.restapi.get('/?object=person&action=getAll').pipe(
       map((res: any) => {
         if (res && res.status && res.status === 'success') {
-          this.products = res.data;
+          this.subjects = res.data;
         }
-        return this.products;
+        return this.subjects;
       })
     );
 

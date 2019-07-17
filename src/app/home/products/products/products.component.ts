@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { AlertService, LoaderService } from 'src/core/components';
-import { ProductService } from 'src/app/service/product.service';
+import { ProductService } from 'src/app/home/products/product.service';
 import { RestApiService } from 'src/core/services/rest-api.service';
 
 @Component({

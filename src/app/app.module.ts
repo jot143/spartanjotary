@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import {AlertComponent, LoaderComponent} from '../core/components';
 import { ProductsModule } from './home/products/products.module';
 import { FormsModule } from '@angular/forms';
+import { PersonsModule } from './home/persons/persons.module';
+import { InventoryModule } from './home/inventory/inventory.module';
+
 
 
 @NgModule({
@@ -20,9 +23,11 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    PersonsModule,
     FormsModule,
     HttpClientModule,
     ProductsModule,
+    InventoryModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

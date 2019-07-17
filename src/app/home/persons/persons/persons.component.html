@@ -1,0 +1,485 @@
+<div class="content-wrapper">
+  <!-- The Add Modal -->
+  <div class="modal" id="addModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Company</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="auto-form-wrapper">
+            <form>
+              <div class="form-group">
+                <label class="label">Company Name</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.name" name="name" class="form-control"
+                    placeholder="Name of Company" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Contact Person</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.contactperson" name="contactperson" class="form-control"
+                    placeholder="Contact Person" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Address</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.street" name="street" class="form-control"
+                    placeholder="Address" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">City</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.city" name="city" class="form-control"
+                    placeholder="City" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Pincode</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.pincode" name="pincode" class="form-control"
+                    placeholder="Pincode" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">State</label>
+                <select [(ngModel)]="form.state" name="state" class="form-control" [value]="">
+                  <option value="">SELECT STATE</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Chhattisgarh">Chhattisgarh</option>
+                  <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                  <option value="Daman and Diu">Daman and Diu</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Manipur">Manipur</option>
+                  <option value="Meghalaya">Meghalaya</option>
+                  <option value="Mizoram">Mizoram</option>
+                  <option value="Nagaland">Nagaland</option>
+                  <option value="Orissa">Orissa</option>
+                  <option value="Puducherry">Puducherry</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Sikkim">Sikkim</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tripura">Tripura</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="West Bengal">West Bengal</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Country</label>
+                <select [(ngModel)]="form.country" name="india" class="form-control" [value]="india">
+                  <option value="india">India</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="label">GST Type</label>
+                <select [(ngModel)]="form.gsttype" name="gsttype" class="form-control" [value]="unregister">
+                  <option value="register">Register</option>
+                  <option value="unregister">Un Register</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="label">GST Number</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.gstin" name="gstin" class="form-control"
+                    placeholder="GST Number" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">CIN</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.cin" name="cin" class="form-control"
+                    placeholder="CINr" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Mobile</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.mobile" name="cin" class="form-control"
+                    placeholder="Mobile" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Tel</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.tel" name="tel" class="form-control"
+                    placeholder="Tel" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Email</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="form.email" name="email" class="form-control"
+                    placeholder="Email" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-primary submit-btn btn-block" (click)="add()">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- The Edit Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Company</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="auto-form-wrapper">
+            <form>
+              <div class="form-group">
+                <label class="label">Company Name</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.name" name="name" class="form-control"
+                    placeholder="Name of Company" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Contact Person</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.contactperson" name="contactperson" class="form-control"
+                    placeholder="Contact Person" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Address</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.street" name="street" class="form-control"
+                    placeholder="Address" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">City</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.city" name="city" class="form-control"
+                    placeholder="City" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Pincode</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.pincode" name="pincode" class="form-control"
+                    placeholder="Pincode" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">State</label>
+                <select [(ngModel)]="formEdit.state" name="state" class="form-control" [value]="">
+                  <option value="">SELECT STATE</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Chhattisgarh">Chhattisgarh</option>
+                  <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                  <option value="Daman and Diu">Daman and Diu</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Manipur">Manipur</option>
+                  <option value="Meghalaya">Meghalaya</option>
+                  <option value="Mizoram">Mizoram</option>
+                  <option value="Nagaland">Nagaland</option>
+                  <option value="Orissa">Orissa</option>
+                  <option value="Puducherry">Puducherry</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Sikkim">Sikkim</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tripura">Tripura</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="West Bengal">West Bengal</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Country</label>
+                <select [(ngModel)]="formEdit.country" name="india" class="form-control" [value]="india">
+                  <option value="india">India</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="label">GST Type</label>
+                <select [(ngModel)]="formEdit.gsttype" name="gsttype" class="form-control" [value]="unregister">
+                  <option value="register">Register</option>
+                  <option value="unregister">Un Register</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="label">GST Number</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.gstin" name="gstin" class="form-control"
+                    placeholder="GST Number" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">CIN</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.cin" name="cin" class="form-control"
+                    placeholder="CINr" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Mobile</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.mobile" name="cin" class="form-control"
+                    placeholder="Mobile" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Tel</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.tel" name="tel" class="form-control"
+                    placeholder="Tel" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Email</label>
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="formEdit.email" name="email" class="form-control"
+                    placeholder="Email" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-primary submit-btn btn-block" (click)="edit()">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- View Modal -->
+  <div class="modal" id="viewModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Company Detail</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="auto-form-wrapper">
+            <table class="table table-hover table-bordered table-striped">
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>{{ formView.name }}</td>
+                </tr>
+                <tr>
+                  <td>Contact Person</td>
+                  <td>
+                      {{ formView.contactperson }} {{ formView.mobile }} {{ formView.email }}
+                      {{ formView.tel }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                  <td>{{ formView.street }} {{ formView.city }} {{ formView.state }} {{ formView.country }} {{ formView.pincode }}</td>
+                </tr>
+                <tr>
+                  <td>GST</td>
+                  <td>{{ formView.gstin }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Company Detail</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="auto-form-wrapper">
+              <table class="table table-hover table-bordered table-striped">
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>{{ formView.name }}</td>
+                    </tr>
+                    <tr>
+                      <td>Contact Person</td>
+                      <td>
+                          {{ formView.contactperson }} {{ formView.mobile }} {{ formView.email }}
+                          {{ formView.tel }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Address</td>
+                      <td>{{ formView.street }} {{ formView.city }} {{ formView.state }} {{ formView.country }} {{ formView.pincode }}</td>
+                    </tr>
+                    <tr>
+                      <td>GST</td>
+                      <td>{{ formView.gstin }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          Are you sure to delete? &nbsp;
+          <button type="button" class="btn btn-primary" (click)="delete(viewproduct)">Delete</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal End -->
+
+  <!-- Page Title Header Starts-->
+  <div class="row page-title-header">
+    <div class="col-12">
+      <div class="page-header">
+        <h4 class="page-title">Company/Person List</h4>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="page-header-toolbar">
+        <button type="button" class="btn btn-primary toolbar-item" data-toggle="modal"
+          data-target="#addModal">New</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Page Title Header Ends-->
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="card-title">Hoverable Table</h4> -->
+          <!-- <p class="card-description"> Add class <code>.table-hover</code> </p> -->
+          <table class="table table-hover table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Contact Person</th>
+                <th>Address</th>
+                <th>GST</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="(subjectService.$subjects | async) as products; else loading">
+              <tr *ngFor="let x of products; let i = index">
+                <td style="width: 50px">{{ i+1 }}</td>
+                <td style="width: 50px">{{ x.name }}</td>
+                <td style="width: 250px">{{ x.contactperson }}<br/> {{ x.mobile }} {{ x.tel }} {{ x.email }}</td>
+                <td style="width: 50px">{{ x.street }} {{ x.city }} {{ x.state }} {{ x.country }} {{ x.pincode }}</td>
+                <td style="width: 100px">{{ x.gstin }}</td>
+                <td style="padding:0">
+                  <div class="actionIcon">
+                    <i class="fa fa-info-circle" data-toggle="modal" data-target="#viewModal" (click)="viewMe(x)"></i>
+                    <i class="fa fa-edit" data-toggle="modal" data-target="#editModal" (click)="editMe(x)"></i>
+                    <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal" (click)="deleteMe(x)"></i>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="products.length == 0">
+                <td colspan="8">No Company</td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #loading>
+            <div>Loading...</div>
+          </ng-template>
+          <div class="refresh" *ngIf="subjectService.subjects.length == 0"
+            (click)="subjectService.$subjects = subjectService.getAll()">
+            <button class="refresh-button"></button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
