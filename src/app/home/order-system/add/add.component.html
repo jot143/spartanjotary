@@ -1,3 +1,6 @@
-<p>
-  add works!
-</p>
+ <form>
+  <app-form-builder [formData]="schema.formAdd" [parent]="{}" [callback]="{}"></app-form-builder>
+  <div class="form-group mt-5" style="padding: 0 20%">
+    <button class="btn btn-success btn-lg submit-btn btn-block" (click)="submit(schema.formAdd, schema)">Create {{ schema.name  }}</button>
+  </div>
+</form>

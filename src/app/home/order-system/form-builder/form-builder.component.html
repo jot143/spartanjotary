@@ -1,9 +1,8 @@
-<form>
   <span *ngFor="let form of formData | keyvalue | orderBy: 'value.order'">
     <div class="form-group"
       *ngIf="((!form.value.if) || (form.value.if && form.value.if(formData))) && ((form.value.name && form.value.name.length > 0) || !form.value.name)">
 
-      <label class="label">{{ form.value.name }}</label>
+      <label *ngIf="form.value.name" class="label">{{ form.value.name }}</label>
       <div class="input-group">
         <input type="text" *ngIf="form.value.type == 'text'" [(ngModel)]="form.value.value" name="{{ form.key }}"
           class="form-control" placeholder="" />
@@ -24,7 +23,7 @@
         <span *ngIf="form.value.type == 'autocomplete'" style="width:100%">
           <div class="input-group">
             <input type="text" [(ngModel)]="form.value.typing" autocomplete="off" name="parentsearch"
-              (keyup)="autocomplete(form.value)" class="form-control" placeholder="No Category">
+              (keyup)="orderSystemService.autocomplete(form.value)" class="form-control" placeholder="No Category">
             <div class="search-list">
               <div class="list">
                 <div *ngFor="let node of form.value.searchList" class="relative">
@@ -47,22 +46,54 @@
                 </div>
                 <div class="modal-body">
                   <div class="auto-form-wrapper">
-                    <app-form-builder formData="form.value.value.value()"></app-form-builder>
+                    <app-form-builder [formData]="form.value.form" [parent]="formData" [callback]="callbackNew"></app-form-builder>
                   </div>
+                  <!-- <div class="form-group">
+                    <button class="btn btn-primary submit-btn btn-block" (click)="add()">Add</button>
+                  </div> -->
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
           </div>
 
+          {{ form.value.value }}
+          <table class="table table-hover table-bordered table-striped" *ngIf="form.value.value.length > 0" style="margin-bottom:10px">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <ng-container *ngFor="let x of form.value.form | keyvalue">
+                  <th  *ngIf="x.key != 'submit'">{{ x.value.name }}</th>
+                  </ng-container>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let x of form.value.value; let i = index">
+                  <td>{{ i+1 }}</td>
+                  <ng-container *ngFor="let y of x | keyvalue">
+                    <td>
+                      <ng-container *ngIf="form.value.form[y.key].type == 'autocomplete'; else normal">
+                        {{ orderSystemService.getNameOfAutoComplete(form.value.form[y.key], y.value) }}
+                      </ng-container>
+                      <ng-template #normal>
+                          {{ y.value }}
+                      </ng-template>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+          </table>
           <button type="button" class="btn btn-primary toolbar-item" data-toggle="modal"
-          [attr.data-target]="'#ChildModal' + form.key ">{{ form.value.buttonName  }}</button>
+            [attr.data-target]="'#ChildModal' + form.key ">{{ form.value.buttonName  }}</button>
+        </span>
+
+        <span *ngIf="form.key == 'submit'" style="width:100%">
+            <button class="btn btn-primary submit-btn btn-block" (click)="submit(formData)">{{ form.value.name }}</button>
         </span>
       </div>
 
     </div>
   </span>
-
-  <div class="form-group">
-    <button class="btn btn-primary submit-btn btn-block" (click)="add()">Add</button>
-  </div>
-</form>
