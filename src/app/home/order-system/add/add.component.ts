@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SubjectService } from '../../persons/service/subject.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrderSystemService } from '../order-system.service';
-import { AlertService } from 'src/core/components';
+import { AlertService, LoaderService } from 'src/core/components';
+import { UserService } from 'src/core/services';
 
 @Component({
   selector: 'app-add',
@@ -19,7 +20,11 @@ export class AddComponent implements OnInit, OnDestroy {
   constructor(public activeRoute: ActivatedRoute,
               public subjectService: SubjectService,
               public orderSystemService: OrderSystemService,
-              public alertService: AlertService
+              public alertService: AlertService,
+              public userService: UserService,
+              public loaderService: LoaderService,
+              public router: Router
+
     ) { }
 
   ngOnInit() {
@@ -36,7 +41,7 @@ export class AddComponent implements OnInit, OnDestroy {
   }
 
   submit(formData, schema) {
-    const response = {};
+    const parameter: any = {};
     for (const i of Object.keys(formData)) {
       // tslint:disable-next-line:triple-equals
       if (typeof formData[i].validate != 'undefined') {
@@ -50,19 +55,25 @@ export class AddComponent implements OnInit, OnDestroy {
           return;
         }
       }
-
       // tslint:disable-next-line:triple-equals
       if (i != 'submit') {
-        response[i] = formData[i].value;
+        parameter[i] = formData[i].value;
       }
     }
 
-    // tslint:disable-next-line:variable-name
+    parameter.schema = schema.object;
+    parameter.created_by = this.userService.cId();
 
-
-
-    // tslint:disable-next-line:triple-equals
-    // formData.submit.action(response, this.parent);
-    // this.callback.closeModels();
+    const response = this.orderSystemService.add(parameter, schema);
+    this.loaderService.start('Please Wait...', true);
+    response.subscribe((res: any) => {
+      this.loaderService.dismiss();
+      if (res && res.status && res.status === 'success') {
+        this.router.navigate(['home/order-system/challanin/list']);
+        this.alertService.success(res.msg);
+      } else {
+        this.alertService.error(res.msg);
+      }
+    });
   }
 }

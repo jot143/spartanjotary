@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ProductService } from '../products/product.service';
 import { SubjectService } from '../persons/service/subject.service';
+import { RestApiService } from 'src/core/services/rest-api.service';
+import { map } from 'rxjs/operators';
+import { UserService } from 'src/core/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderSystemService {
+  subjects: any;
+  $subjects: any;
 
-  constructor(public productService: ProductService, public subjectService: SubjectService) { }
+  constructor(public productService: ProductService,
+              public subjectService: SubjectService,
+              public userService: UserService,
+              public restapi: RestApiService) { }
 
   autocomplete(form) {
     form.searchList = [];
@@ -55,5 +63,39 @@ export class OrderSystemService {
         return x.name;
       }
     }
+  }
+
+  add(parameter, schema) {
+    const response = this.restapi.post('/?object=orderSystem&action=add', parameter);
+    return response;
+  }
+
+  getAll(object, schema) {
+    const response = this.restapi.get('/?object=orderSystem&action=getAll&schema=' + schema.object).pipe(
+      map((res: any) => {
+        if (res && res.status && res.status === 'success') {
+          object = res.data;
+        }
+        return object;
+      })
+    );
+
+    return response;
+  }
+
+  getItems(object, schema) {
+    this.restapi.get('/?object=orderSystem&action=getItems&schema='
+    + schema.object + '&id=' + object.id ).subscribe((res: any) => {
+      // tslint:disable-next-line:triple-equals
+      if (res.status == 'success') {
+        object.items = res.data;
+      } else {
+        object.items = [];
+      }
+    });
+  }
+
+  stockIn(x) {
+    return this.restapi.update('/?object=orderSystem&action=stockin', x);
   }
 }

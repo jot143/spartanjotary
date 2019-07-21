@@ -20,7 +20,8 @@ export class SubjectService {
   editproduct: any = {};
   deleteproduct: any = {};
 
-  constructor(public restapi: RestApiService, public alertService: AlertService) {
+  constructor(public restapi: RestApiService,
+              public alertService: AlertService) {
     // this.$categoriesLinear = this.getCategories();
     this.$subjects = this.getAll();
   }

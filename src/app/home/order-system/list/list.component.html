@@ -1,54 +1,146 @@
+<!-- View Modal -->
+<div class="modal" id="viewModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ schema.name }} Detail</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="auto-form-wrapper">
+          <table class="table table-hover table-bordered table-striped">
+            <tbody *ngIf="formView !== false">
+                <ng-container *ngFor="let form of schema.formView">
+                  <tr *ngIf="form.type == 'normal'">
+                    <td>{{ form.name }}</td>
+                    <td>{{ formView[form.key] }}</td>
+                  </tr>
+                  <tr *ngIf="form.type == 'notimportant'">
+                      <td>{{ form.name }}</td>
+                      <td>{{ formView[form.key] }}</td>
+                  </tr>
+                  <tr *ngIf="form.type == 'conditional'">
+                      <ng-container *ngIf="form.fn(formView).type == 'autocomplete'">
+                          <td>{{ form.name }}</td>
+                          <td>{{ orderSystemService.getNameOfAutoComplete(form.fn(formView) ,formView[form.fn(formView).key]) }}</td>
+                      </ng-container>
+                      <ng-container *ngIf="form.fn(formView).type == 'normal'">
+                          <td>{{ form.name }}</td>
+                          <td>{{ formView[form.fn(formView).key] }}</td>
+                      </ng-container>
+                    </tr>
+                  <tr *ngIf="form.type == 'autocomplete'">
+                      <td>{{ form.name }}</td>
+                      <td>{{ orderSystemService.getNameOfAutoComplete(form ,formView[form.key]) }}</td>
+                  </tr>
+                  <tr *ngIf="form.type == 'enum'">
+                      <td>{{ form.name }}</td>
+                      <td>{{ form.values[formView[form.key]].name }}</td>
+                  </tr>
+                  <tr *ngIf="form.type == 'multipleChildren'">
+                      <td colspan="2">
+                        <h5>{{ form.name }}</h5>
+                        <table  class="table table-hover table-striped">
+                          <ng-container *ngIf="formView[form.key]">
+                           <tr>
+                             <th>#</th>
+                             <th>Product Name</th>
+                             <th>Code</th>
+                             <th>Qty</th>
+                           </tr>
+                           <tr *ngFor="let x of formView[form.key]; let i = index">
+                             <td>{{ i+1 }}</td>
+                             <td>{{ x.product_id }}</td>
+                             <td>{{ x.product_sku }}</td>
+                             <td>{{ x.quantity }}</td>
+                           </tr>
+                           <tr *ngIf="formView[form.key] == 0">
+                               <td colspan="4">No {{ form.key }}</td>
+                           </tr>
+                          </ng-container>
+                        </table>
+                      </td>
+                   </tr>
+              </ng-container>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <!-- <h4 class="card-title">Hoverable Table</h4> -->
-        <!-- <p class="card-description"> Add class <code>.table-hover</code> </p> -->
-        <!-- <table class="table table-hover table-bordered table-striped">
+        <h4 class="card-title">List of {{ schema.name }}</h4>
+        <table class="table table-hover table-bordered table-striped">
           <thead>
             <tr>
               <th>#</th>
-              <th>Code</th>
-              <th>Product</th>
-              <th>Size/Color</th>
-              <th>HSN</th>
-              <th>GST</th>
-              <th>Category</th>
-              <th>Action</th>
+              <ng-container *ngFor="let form of schema.formView">
+                  <th *ngIf="form.type == 'normal' || form.type == 'conditional'
+                  || form.type == 'autocomplete' || form.type == 'enum'">
+                      {{ form.name }}
+                  </th>
+              </ng-container>
+              <th>
+                Action
+              </th>
             </tr>
           </thead>
-          <tbody *ngIf="(productService.$products | async) as products; else loading">
-            <tr *ngFor="let x of products; let i = index">
+          <ng-container *ngIf="schema.object">
+          <tbody *ngIf="($subject[schema.object] | async) as subjects; else loading">
+            <tr *ngFor="let x of subjects; let i = index">
               <td style="width: 50px">{{ i+1 }}</td>
-              <td style="width: 50px">{{ x.sku }}</td>
-              <td style="width: 250px">{{ x.name }}</td>
-              <td style="width: 50px">{{ x.size }} {{ x.color }}</td>
-              <td style="width: 100px">{{ x.hsn }}</td>
-              <td style="width: 50px">{{ x.gstpercentage }}%</td>
-              <td style="font-size:12px">{{ productService.getTree(x.category_id) | async }}</td>
+              <ng-container *ngFor="let form of schema.formView">
+                <td *ngIf="form.type == 'normal'">
+                    {{ x[form.key] }}
+                </td>
+                <td *ngIf="form.type == 'conditional'">
+                    <ng-container *ngIf="form.fn(x).type == 'autocomplete'">
+                        {{ orderSystemService.getNameOfAutoComplete(form.fn(x) ,x[form.fn(x).key]) }}
+                    </ng-container>
+                    <ng-container *ngIf="form.fn(x).type == 'normal'">
+                        {{ x[form.fn(x).key] }}
+                    </ng-container>
+                </td>
+                <td *ngIf="form.type == 'autocomplete'">
+                    {{ orderSystemService.getNameOfAutoComplete(form ,x[form.key]) }}
+                </td>
+                <td *ngIf="form.type == 'enum'">
+                  {{ form.values[x[form.key]].name }}
+                </td>
+              </ng-container>
               <td style="padding:0">
                 <div class="actionIcon">
                   <i class="fa fa-info-circle" data-toggle="modal" data-target="#viewModal" (click)="viewMe(x)"></i>
                   <i class="fa fa-edit" data-toggle="modal" data-target="#editModal" (click)="editMe(x)"></i>
                   <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal" (click)="deleteMe(x)"></i>
+                  <ng-container *ngIf="x.status == 'init'"><button class="btn btn-sm btn-success" (click)="Me[schema.stock.fn](x, schema)">{{ schema.stock.name }}</button></ng-container>
                 </div>
               </td>
             </tr>
-            <tr *ngIf="products.length == 0">
-              <td colspan="8">No Products</td>
+            <tr *ngIf="subjects.length == 0">
+              <td colspan="8">No {{ schema.name }}</td>
             </tr>
           </tbody>
+          </ng-container>
         </table>
         <ng-template #loading>
           <div>Loading...</div>
         </ng-template>
-        <div class="refresh" *ngIf="productService.products.length == 0"
+        <!-- <div class="refresh" *ngIf="productService.products.length == 0"
           (click)="productService.$products = productService.getProducts()">
           <button class="refresh-button"></button>
         </div> -->
       </div>
     </div>
-
-
   </div>
 </div>

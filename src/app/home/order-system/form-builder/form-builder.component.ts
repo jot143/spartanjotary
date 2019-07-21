@@ -37,13 +37,17 @@ export class FormBuilderComponent implements OnInit {
     }
   }
 
+  deleteItem(i, ary) {
+    ary = ary.splice(i, 1);
+  }
+
   submit(formData) {
 
     const response = {};
     for (const i of Object.keys(formData)) {
       // tslint:disable-next-line:triple-equals
       if (typeof formData[i].validate != 'undefined') {
-        const res = formData[i].validate(formData[i]);
+        const res = formData[i].validate(formData[i], formData);
         if (res !== true) {
           this.alertService.error(res.msg);
           return;

@@ -2,7 +2,7 @@
     <div class="form-group"
       *ngIf="((!form.value.if) || (form.value.if && form.value.if(formData))) && ((form.value.name && form.value.name.length > 0) || !form.value.name)">
 
-      <label *ngIf="form.value.name" class="label">{{ form.value.name }}</label>
+      <label *ngIf="form.value.name && form.value.type != 'dependent' && form.key != 'submit'" class="label">{{ form.value.name }}</label>
       <div class="input-group">
         <input type="text" *ngIf="form.value.type == 'text'" [(ngModel)]="form.value.value" name="{{ form.key }}"
           class="form-control" placeholder="" />
@@ -60,7 +60,6 @@
             </div>
           </div>
 
-          {{ form.value.value }}
           <table class="table table-hover table-bordered table-striped" *ngIf="form.value.value.length > 0" style="margin-bottom:10px">
               <thead>
                 <tr>
@@ -68,6 +67,7 @@
                   <ng-container *ngFor="let x of form.value.form | keyvalue">
                   <th  *ngIf="x.key != 'submit'">{{ x.value.name }}</th>
                   </ng-container>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -83,6 +83,11 @@
                       </ng-template>
                     </td>
                   </ng-container>
+                  <td>
+                    <div class="actionIcon">
+                      <i class="fa fa-trash" (click)="deleteItem(i, form.value.value)"></i>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
           </table>
