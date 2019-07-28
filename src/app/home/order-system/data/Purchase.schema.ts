@@ -28,10 +28,10 @@ const validateName = (x, form) => {
   return true;
 };
 
-export const ChallaninSchema: any = {
-  name: 'Challan In',
-  object: 'challanin',
-  mulitname: 'Challan In',
+export const PurchaseSchema: any = {
+  name: 'Purchase Order',
+  object: 'purchase',
+  mulitname: 'Purchase Orders',
   formAdd: {
     type: {
       name: 'Deal With',
@@ -42,9 +42,7 @@ export const ChallaninSchema: any = {
       defult: 'company',
       value: 'company',
       order: 1,
-
       validate: validateOption
-
     },
     person_id: {
       name: 'Name Company',
@@ -98,19 +96,86 @@ export const ChallaninSchema: any = {
         return true;
       }
     },
+    quotation_ref: {
+      name: 'Quotation Ref No',
+      type: 'text',
+      default: 'Spartan Internatinal',
+      value: 'Spartan Internatinal',
+      order: 4
+    },
+    gst_type: {
+      name: 'GST Type',
+      type: 'radio',
+      option: [{ key: 'sgst-cgst', value: 'SGST-CGST' },
+               { key: 'igst', value: 'IGST' },
+      ],
+      defult: 'sgst-cgst',
+      value: 'sgst-cgst',
+      order: 5,
+      validate: validateOption
+    },
+    contact_number: {
+      name: 'Contact Number',
+      type: 'text',
+      default: '0181-5056987',
+      value: '0181-5056987',
+      order: 6
+    },
+    contact_person: {
+      name: 'Contact Person',
+      type: 'text',
+      default: 'After Delivery',
+      value: 'After Delivery',
+      order: 7
+    },
+    payment_terms: {
+      name: 'Payment Term`s',
+      type: 'text',
+      default: 'Prabhdeep Singh Nijjar',
+      value: 'Prabhdeep Singh Nijjar',
+      order: 8
+    },
+    ship_to: {
+      name: 'Ship To',
+      type: 'text',
+      default: 'Spartan Internatinal',
+      value: 'Spartan Internatinal',
+      order: 9
+    },
+    bill_to: {
+      name: 'Bill To',
+      type: 'text',
+      default: 'Spartan Internatinal',
+      value: 'Spartan Internatinal',
+      order: 10
+    },
+    ship_via: {
+      name: 'Ship Via',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 11
+    },
+    delivery_date: {
+      name: 'Delivery Date',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 12
+    },
+    delivery_terms: {
+      name: 'Delivery Term`s',
+      type: 'textarea',
+      default: '',
+      value: '',
+      order: 13
+    },
     description: {
       name: 'Description',
       type: 'textarea',
       default: '',
       value: '',
-      order: 4
-    },
-    cases: {
-      name: 'Cases',
-      type: 'number',
-      default: 1,
-      value: 1,
-      order: 5
+      order: 14
     },
     items: {
       name: 'List of Products',
@@ -123,6 +188,7 @@ export const ChallaninSchema: any = {
         product_id: {
           name: 'Products',
           type: 'autocomplete',
+          matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
           typing: '',
           searchList: [],
           callback: (x, form) => {
@@ -138,7 +204,8 @@ export const ChallaninSchema: any = {
           default: 0,
           value: 0,
           valuefull: {},
-          validate: validateId
+          validate: validateId,
+          order: 1
         },
         product_sku: {
           name: 'Code',
@@ -156,7 +223,8 @@ export const ChallaninSchema: any = {
               return false;
             }
             return true;
-          }
+          },
+          order: 2
         },
         quantity: {
           name: 'Qunatity',
@@ -174,7 +242,54 @@ export const ChallaninSchema: any = {
               return { status: false, msg: 'Please ' + x.name + ', is not integer' };
             }
             return true;
-          }
+          },
+          order: 3
+        },
+        price: {
+          name: 'Price',
+          type: 'text',
+          default: 0,
+          value: 0,
+          min: 0,
+          validate: (x, formData) => {
+            // tslint:disable-next-line:radix
+            x.value = parseInt(x.value);
+            if (typeof x.value == 'undefined' || x.value < x.min) {
+              return { status: false, msg: 'Minimum price must be ' + x.min };
+            }
+
+            if (Number.isInteger(x.value) === false) {
+              return { status: false, msg:  x.name + ' must be a integer' };
+            }
+            return true;
+          },
+          order: 4
+        },
+        discount_percent: {
+          name: 'Discount Percentage',
+          type: 'text',
+          default: 0,
+          value: 0,
+          min: 0,
+          max: 100,
+          validate: (x, formData) => {
+            // tslint:disable-next-line:radix
+            x.value = parseInt(x.value);
+            // tslint:disable-next-line:triple-equals
+            if (typeof x.value == 'undefined' || x.value < x.min) {
+              return { status: false, msg: 'Minimum discount must be ' + x.min };
+            }
+
+            if (x.value > x.max) {
+              return { status: false, msg: 'Maximum discount must be ' + x.min };
+            }
+
+            if (Number.isInteger(x.value) === false) {
+              return { status: false, msg: 'Please ' + x.name + ', is not integer' };
+            }
+            return true;
+          },
+          order: 5
         },
 
         submit: {
@@ -193,7 +308,7 @@ export const ChallaninSchema: any = {
       },
       default: [],
       value: [],
-      order: 7,
+      order: 15,
 
       validate: (x, form) => {
         // tslint:disable-next-line:triple-equals
@@ -225,8 +340,17 @@ export const ChallaninSchema: any = {
                       }
                   },
      type: 'conditional'},
+    {name: 'Quotation RefNo', key: 'quatation_ref', type: 'normal'},
+    {name: 'GST Type', key: 'gst_type', type: 'enum', values: { 'sgst-cgst': {name: 'SGST-CGST'}, igst: {name: 'IGST'}}},
+    {name: 'Bill To', key: 'bill_to', type: 'notimportant'},
+    {name: 'Contact Person', key: 'contact_person', type: 'notimportant'},
+    {name: 'Contact Number', key: 'contact_number', type: 'notimportant'},
+    {name: 'Ship To', key: 'ship_to', type: 'notimportant'},
+    {name: 'Ship Via', key: 'ship_via', type: 'notimportant'},
+    {name: 'Delivery Date', key: 'delivery_date', type: 'notimportant'},
+    {name: 'Delivery Terms', key: 'delivery_terms', type: 'notimportant'},
+    {name: 'Payment Terms', key: 'delivery_terms', type: 'notimportant'},
     {name: 'Description', key: 'description', type: 'notimportant'},
-    {name: 'Cases', key: 'cases', type: 'normal'},
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'
@@ -258,6 +382,18 @@ export const ChallaninSchema: any = {
             key: 'quantity',
             type: 'normal',
             value: 1
+          },
+          {
+            name: 'Price',
+            key: 'price',
+            type: 'text',
+            value: 0
+          },
+          {
+            name: 'Discount %',
+            key: 'discount_percent',
+            type: 'text',
+            value: 0
           }
         ]
       },

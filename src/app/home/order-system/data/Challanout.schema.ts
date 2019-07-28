@@ -28,10 +28,10 @@ const validateName = (x, form) => {
   return true;
 };
 
-export const ChallaninSchema: any = {
-  name: 'Challan In',
-  object: 'challanin',
-  mulitname: 'Challan In',
+export const ChallanoutSchema: any = {
+  name: 'Challan Out',
+  object: 'challanout',
+  mulitname: 'Challan Out',
   formAdd: {
     type: {
       name: 'Deal With',
@@ -125,6 +125,7 @@ export const ChallaninSchema: any = {
           type: 'autocomplete',
           typing: '',
           searchList: [],
+          matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
           callback: (x, form) => {
             form.value = x.id;
             form.valuefull = x;
@@ -231,7 +232,7 @@ export const ChallaninSchema: any = {
       type: 'service',
       value: 'userService.subjects'
     }},
-    {name: 'Status', key: 'status', type: 'enum', values: {init: {name: 'Initialize'}, stockin: {name: 'Stock In'}}},
+    {name: 'Status', key: 'status', type: 'enum', values: {init: {name: 'Initialize'}, stockout: {name: 'Stock Out'}}},
     {name: 'Date & Time', key: 'created_datetime', type: 'normal'},
     { name: 'List of Products',
       key: 'items',
@@ -262,7 +263,7 @@ export const ChallaninSchema: any = {
         ]
       },
   ],
-  stock: { name: 'Stock In', fn: 'stockIn'}
+  stock: { name: 'Stock Out', fn: 'stockOut'}
 };
 
 

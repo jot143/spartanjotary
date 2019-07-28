@@ -51,6 +51,20 @@ export class ListComponent implements OnInit {
     });
   }
 
+  stockOut(x, schema) {
+    x.created_by = this.userService.cId();
+    x.schema = schema.object;
+    this.orderSystemService.stockOut(x).subscribe((res: any) => {
+        // tslint:disable-next-line:triple-equals
+        if (res.status == 'success') {
+          this.$subject[this.schema.object] = this.orderSystemService.getAll(this.object, this.schema);
+          this.alertService.success(res.msg);
+        } else {
+          this.alertService.error(res.msg);
+        }
+    });
+  }
+
   viewMe(x) {
     this.formView = x;
     this.orderSystemService.getItems(this.formView, this.schema);

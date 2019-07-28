@@ -23,12 +23,12 @@
         <span *ngIf="form.value.type == 'autocomplete'" style="width:100%">
           <div class="input-group">
             <input type="text" [(ngModel)]="form.value.typing" autocomplete="off" name="parentsearch"
-              (keyup)="orderSystemService.autocomplete(form.value)" class="form-control" placeholder="No Category">
+              (keyup)="orderSystemService.autocomplete(form.value, form.value.matches)" class="form-control" placeholder="">
             <div class="search-list">
               <div class="list">
                 <div *ngFor="let node of form.value.searchList" class="relative">
                   <label class="accordion active" (click)="form.value.callback(node, form.value)">
-                    {{node.name}}
+                    {{node.name}} {{ node.sku }} {{ node.size }} {{ node.color }}
                   </label>
                 </div>
               </div>
@@ -48,9 +48,6 @@
                   <div class="auto-form-wrapper">
                     <app-form-builder [formData]="form.value.form" [parent]="formData" [callback]="callbackNew"></app-form-builder>
                   </div>
-                  <!-- <div class="form-group">
-                    <button class="btn btn-primary submit-btn btn-block" (click)="add()">Add</button>
-                  </div> -->
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">

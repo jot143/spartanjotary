@@ -69,7 +69,7 @@ export class AddComponent implements OnInit, OnDestroy {
     response.subscribe((res: any) => {
       this.loaderService.dismiss();
       if (res && res.status && res.status === 'success') {
-        this.router.navigate(['home/order-system/challanin/list']);
+        this.router.navigate(['home/order-system/' + schema.object + '/list']);
         this.alertService.success(res.msg);
       } else {
         this.alertService.error(res.msg);

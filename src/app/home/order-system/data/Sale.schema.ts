@@ -28,10 +28,10 @@ const validateName = (x, form) => {
   return true;
 };
 
-export const ChallaninSchema: any = {
-  name: 'Challan In',
-  object: 'challanin',
-  mulitname: 'Challan In',
+export const SaleSchema: any = {
+  name: 'Sale Order',
+  object: 'sale',
+  mulitname: 'Sale Orders',
   formAdd: {
     type: {
       name: 'Deal With',
@@ -42,9 +42,7 @@ export const ChallaninSchema: any = {
       defult: 'company',
       value: 'company',
       order: 1,
-
       validate: validateOption
-
     },
     person_id: {
       name: 'Name Company',
@@ -98,19 +96,133 @@ export const ChallaninSchema: any = {
         return true;
       }
     },
-    description: {
-      name: 'Description',
-      type: 'textarea',
+    quotation_ref: {
+      name: 'Quotation Ref No',
+      type: 'text',
       default: '',
       value: '',
       order: 4
+    },
+    purchase_ref: {
+      name: 'Purchase Ref No',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 4
+    },
+    gst_type: {
+      name: 'GST Type',
+      type: 'radio',
+      option: [{ key: 'sgst-cgst', value: 'SGST-CGST' },
+               { key: 'igst', value: 'IGST' },
+      ],
+      defult: 'sgst-cgst',
+      value: 'sgst-cgst',
+      order: 5,
+      validate: validateOption
     },
     cases: {
       name: 'Cases',
       type: 'number',
       default: 1,
       value: 1,
-      order: 5
+      order: 6
+    },
+    contact_number: {
+      name: 'Contact Number',
+      type: 'text',
+      default: '0181-5056987',
+      value: '0181-5056987',
+      order: 7
+    },
+    contact_person: {
+      name: 'Contact Person',
+      type: 'text',
+      default: 'After Delivery',
+      value: 'After Delivery',
+      order: 8
+    },
+    bill_to: {
+      name: 'Bill To',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 9
+    },
+    ship_to: {
+      name: 'Place of Supply',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 10
+    },
+    ship_via: {
+      name: 'Ship Through',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 11
+    },
+    transport_mode: {
+      name: 'Transport Mode',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 11
+    },
+    delivery_date: {
+      name: 'Delivery Date',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 12
+    },
+    gr_no: {
+      name: 'Gr Number',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 13
+    },
+    gr_date: {
+      name: 'Gr Date',
+      type: 'text',
+      default: '',
+      value: '',
+      order: 14
+    },
+    discount_percent: {
+      name: 'Discount Percentage',
+      type: 'number',
+      default: 0,
+      value: 0,
+      order: 15,
+      min: 0,
+      max: 100,
+      validate: (x, formData) => {
+        // tslint:disable-next-line:radix
+        x.value = parseInt(x.value);
+        // tslint:disable-next-line:triple-equals
+        if (typeof x.value == 'undefined' || x.value < x.min) {
+          return { status: false, msg: 'Minimum discount must be ' + x.min };
+        }
+
+        if (x.value > x.max) {
+          return { status: false, msg: 'Maximum discount must be ' + x.min };
+        }
+
+        if (Number.isInteger(x.value) === false) {
+          return { status: false, msg: 'Please ' + x.name + ', is not integer' };
+        }
+        return true;
+      },
+    },
+    description: {
+      name: 'Description',
+      type: 'textarea',
+      default: '',
+      value: '',
+      order: 14
     },
     items: {
       name: 'List of Products',
@@ -125,6 +237,7 @@ export const ChallaninSchema: any = {
           type: 'autocomplete',
           typing: '',
           searchList: [],
+          matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
           callback: (x, form) => {
             form.value = x.id;
             form.valuefull = x;
@@ -138,7 +251,8 @@ export const ChallaninSchema: any = {
           default: 0,
           value: 0,
           valuefull: {},
-          validate: validateId
+          validate: validateId,
+          order: 1
         },
         product_sku: {
           name: 'Code',
@@ -156,7 +270,8 @@ export const ChallaninSchema: any = {
               return false;
             }
             return true;
-          }
+          },
+          order: 2
         },
         quantity: {
           name: 'Qunatity',
@@ -174,7 +289,55 @@ export const ChallaninSchema: any = {
               return { status: false, msg: 'Please ' + x.name + ', is not integer' };
             }
             return true;
-          }
+          },
+          order: 3
+        },
+        price: {
+          name: 'Price',
+          type: 'text',
+          default: 0,
+          value: 0,
+          min: 0,
+          validate: (x, formData) => {
+            // tslint:disable-next-line:radix
+            x.value = parseInt(x.value);
+            // tslint:disable-next-line:triple-equals
+            if (typeof x.value == 'undefined' || x.value < x.min) {
+              return { status: false, msg: 'Minimum price must be ' + x.min };
+            }
+
+            if (Number.isInteger(x.value) === false) {
+              return { status: false, msg:  x.name + ' must be a integer' };
+            }
+            return true;
+          },
+          order: 4
+        },
+        discount_percent: {
+          name: 'Discount Percentage',
+          type: 'text',
+          default: 0,
+          value: 0,
+          min: 0,
+          max: 100,
+          validate: (x, formData) => {
+            // tslint:disable-next-line:radix
+            x.value = parseInt(x.value);
+            // tslint:disable-next-line:triple-equals
+            if (typeof x.value == 'undefined' || x.value < x.min) {
+              return { status: false, msg: 'Minimum discount must be ' + x.min };
+            }
+
+            if (x.value > x.max) {
+              return { status: false, msg: 'Maximum discount must be ' + x.min };
+            }
+
+            if (Number.isInteger(x.value) === false) {
+              return { status: false, msg: 'Please ' + x.name + ', is not integer' };
+            }
+            return true;
+          },
+          order: 5
         },
 
         submit: {
@@ -193,7 +356,7 @@ export const ChallaninSchema: any = {
       },
       default: [],
       value: [],
-      order: 7,
+      order: 15,
 
       validate: (x, form) => {
         // tslint:disable-next-line:triple-equals
@@ -225,8 +388,21 @@ export const ChallaninSchema: any = {
                       }
                   },
      type: 'conditional'},
-    {name: 'Description', key: 'description', type: 'notimportant'},
+    {name: 'Purchase RefNo', key: 'purchase_ref', type: 'normal'},
+    {name: 'Quotation RefNo', key: 'quatation_ref', type: 'normal'},
     {name: 'Cases', key: 'cases', type: 'normal'},
+    {name: 'GST Type', key: 'gst_type', type: 'enum', values: { 'sgst-cgst': {name: 'SGST-CGST'}, igst: {name: 'IGST'}}},
+    {name: 'Bill To', key: 'bill_to', type: 'notimportant'},
+    {name: 'Contact Person', key: 'contact_person', type: 'notimportant'},
+    {name: 'Contact Number', key: 'contact_number', type: 'notimportant'},
+    {name: 'Ship To', key: 'ship_to', type: 'notimportant'},
+    {name: 'Ship Via', key: 'ship_via', type: 'notimportant'},
+    {name: 'Transport Mode', key: 'transport_mode', type: 'notimportant'},
+    {name: 'Delivery Date', key: 'delivery_date', type: 'notimportant'},
+    {name: 'Gr Number', key: 'gr_no', type: 'notimportant'},
+    {name: 'Gr Date', key: 'gr_date', type: 'notimportant'},
+    {name: 'Description', key: 'description', type: 'notimportant'},
+    {name: 'Discount', key: 'discount', type: 'notimportant'},
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'
@@ -258,11 +434,23 @@ export const ChallaninSchema: any = {
             key: 'quantity',
             type: 'normal',
             value: 1
+          },
+          {
+            name: 'Price',
+            key: 'price',
+            type: 'text',
+            value: 0
+          },
+          {
+            name: 'Discount %',
+            key: 'discount_percent',
+            type: 'text',
+            value: 0
           }
         ]
       },
   ],
-  stock: { name: 'Stock In', fn: 'stockIn'}
+  stock: { name: 'Stock Out', fn: 'stockOut'}
 };
 
 

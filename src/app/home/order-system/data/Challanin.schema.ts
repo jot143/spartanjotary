@@ -51,6 +51,7 @@ export const ChallaninSchema: any = {
       type: 'autocomplete',
       typing: '',
       searchList: [],
+      matches: [{key: 'name', typeof: 'string'}],
       callback: (x, form) => {
         form.value = x.id;
         form.searchList = [];
@@ -123,6 +124,7 @@ export const ChallaninSchema: any = {
         product_id: {
           name: 'Products',
           type: 'autocomplete',
+          matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
           typing: '',
           searchList: [],
           callback: (x, form) => {

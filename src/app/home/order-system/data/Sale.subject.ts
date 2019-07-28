@@ -1,1 +1,1 @@
-export const Challanin: any = [];
+export const Sale: any = [];

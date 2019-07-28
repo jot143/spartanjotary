@@ -17,15 +17,26 @@ export class OrderSystemService {
               public userService: UserService,
               public restapi: RestApiService) { }
 
-  autocomplete(form) {
+  autocomplete(form, matches = [{key: 'name', typeof: 'string'}]) {
     form.searchList = [];
     if (form.typing === '') {
       return;
     }
+    const compare = (x) => {
+      for (const i of matches) {
+        if (i.typeof === 'string') {
+          if (x[i.key].toLowerCase().search(form.typing.toLowerCase()) > -1) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
     const search = (arry) => {
       const emptyAry = [];
       for (const x of arry) {
-        if (x.name.toLowerCase().search(form.typing.toLowerCase()) > -1) {
+        if (compare(x)) {
           emptyAry.push(x);
         } else {
           if (x.children && x.children.length > 0) {
@@ -97,5 +108,9 @@ export class OrderSystemService {
 
   stockIn(x) {
     return this.restapi.update('/?object=orderSystem&action=stockin', x);
+  }
+
+  stockOut(x) {
+    return this.restapi.update('/?object=orderSystem&action=stockout', x);
   }
 }

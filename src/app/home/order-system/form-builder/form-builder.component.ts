@@ -59,11 +59,11 @@ export class FormBuilderComponent implements OnInit {
         response[i] = formData[i].value;
 
         // tslint:disable-next-line:triple-equals
-        if (formData[i].type == 'autocomplete') {
-          formData[i].typing = '';
-          formData[i].searchList = [];
-          formData[i].value = formData[i].quantity;
-        }
+        // if (formData[i].type == 'autocomplete') {
+        //   formData[i].typing = '';
+        //   formData[i].searchList = [];
+        //   // formData[i].value = formData[i].quantity;
+        // }
 
       }
     }

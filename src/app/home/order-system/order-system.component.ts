@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Route, ActivatedRoute } from '@angular/router';
+import { Route, ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SubjectService } from '../persons/service/subject.service';
 import { ProductService } from '../products/product.service';
@@ -19,7 +19,9 @@ export class OrderSystemComponent implements OnInit, OnDestroy {
 
   form: any;
 
-  constructor(public activeRoute: ActivatedRoute,
+  constructor(
+              public router: Router,
+              public activeRoute: ActivatedRoute,
               public subjectService: SubjectService,
               public productService: ProductService) {
 
@@ -31,6 +33,7 @@ export class OrderSystemComponent implements OnInit, OnDestroy {
     this.activeRouteSubscriber = this.activeRoute.data.subscribe((data: any) => {
       this.object = data.object;
       this.schema = data.schema;
+      console.log(this.schema);
     });
   }
 
@@ -38,5 +41,10 @@ export class OrderSystemComponent implements OnInit, OnDestroy {
     this.activeRouteSubscriber.unsubscribe();
     this.subjectServiceSubscriber.unsubscribe();
     this.productServiceSubscriber.unsubscribe();
+  }
+
+  openAddForm() {
+    const url = '/home/order-system/' + this.schema.object + '/add';
+    this.router.navigate([url]);
   }
 }
