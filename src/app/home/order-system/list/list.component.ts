@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderSystemService } from '../order-system.service';
-import { Observable } from 'rxjs';
-import { SubjectService } from '../../persons/service/subject.service';
 import { AlertService } from 'src/core/components';
 import { UserService } from 'src/core/services';
 

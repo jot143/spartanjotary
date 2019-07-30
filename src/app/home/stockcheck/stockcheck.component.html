@@ -1,0 +1,58 @@
+<div class="content-wrapper">
+  <!-- Page Title Header Ends-->
+    <!-- Page Title Header Starts-->
+  <div class="row page-title-header">
+      <div class="col-12">
+        <div class="page-header">
+          <h4 class="page-title">Stock Check</h4>
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="card-title">Stock Check</h4> -->
+
+          <table class="table table-hover table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Code</th>
+                <th>Order Qty</th>
+                <th>Available Qty</th>
+                <th>Need Qty</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="{ products: (productService.$products | async),
+                              inventory: (inventoryService.$inventry | async),
+                            order: ($orders | async) } as data; else loading">
+              <tr *ngFor="let x of data.order; let i = index">
+                <td>{{ i+1 }}</td>
+                <td>{{ getNameOfProduct(x.product_id) }}</td>
+                <td>{{ x.product_sku }}</td>
+                <td>{{ x.qty }} </td>
+                <td>{{ getQuantity(x.product_id, x) | async }}</td>
+                <td>{{ x.needQty }}</td>
+              </tr>
+              <tr *ngIf="productService.products.length == 0">
+                <td colspan="8">No Products</td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #loading>
+            <div>Loading...</div>
+          </ng-template>
+          <div class="refresh" *ngIf="productService.products.length == 0"
+            (click)="productService.$products = productService.getProducts(); inventoryService.$inventry = inventoryService.getAll();">
+            <button class="refresh-button"></button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

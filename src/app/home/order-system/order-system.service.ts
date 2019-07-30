@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ProductService } from '../products/product.service';
-import { SubjectService } from '../persons/service/subject.service';
 import { RestApiService } from 'src/core/services/rest-api.service';
 import { map } from 'rxjs/operators';
 import { UserService } from 'src/core/services';
+import { PersonService } from '../persons/service/person.service';
+import { InventoryService } from '../inventory/inventory.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class OrderSystemService {
   $subjects: any;
 
   constructor(public productService: ProductService,
-              public subjectService: SubjectService,
+              public personService: PersonService,
+              public inventoryService: InventoryService,
               public userService: UserService,
               public restapi: RestApiService) { }
 
@@ -61,7 +63,8 @@ export class OrderSystemService {
     }
   }
 
-  getNameOfAutoComplete(field, id) {
+  getNameOfAutoComplete(field, id, obj) {
+    // console.log("name", field, id);
     const res = field.from.value.split('.');
     const serviceName = res[0];
     const serviceProperty = res[1];
@@ -71,6 +74,8 @@ export class OrderSystemService {
     for (const x of ary) {
       // tslint:disable-next-line:triple-equals
       if (x.id == id) {
+        const key = field.key + '_detail';
+        obj[key] = x;
         return x.name;
       }
     }

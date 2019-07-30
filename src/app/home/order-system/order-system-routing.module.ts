@@ -14,6 +14,10 @@ import { Purchase } from './data/Purchase.subject';
 
 import { ListComponent } from './list/list.component';
 import { AddComponent } from './add/add.component';
+import { Damage } from './data/Damage.subject';
+import { DamageSchema } from './data/Damage.schema';
+import { DummyOrderSchema } from './data/DummyOrder.schema';
+import { DummyOrder } from './data/DummyOrder.subject ';
 
 const routes: Routes = [
   { path: '', redirectTo: 'challanin', pathMatch: 'full'},
@@ -47,6 +51,22 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full'},
       { path: 'list', component: ListComponent, data: {schema: PurchaseSchema, object: Purchase}},
       { path: 'add', component: AddComponent, data: {schema: PurchaseSchema, object: Purchase}, }
+    ]
+  },
+  { path: 'damage', component: OrderSystemComponent,
+    data: {schema: DamageSchema, object: Damage},
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full'},
+      { path: 'list', component: ListComponent, data: {schema: DamageSchema, object: Damage}},
+      { path: 'add', component: AddComponent, data: {schema: DamageSchema, object: Damage}, }
+    ]
+  },
+  { path: 'dummyorder', component: OrderSystemComponent,
+    data: {schema: DummyOrderSchema, object: DummyOrder},
+    children: [
+      { path: '', redirectTo: 'list', pathMatch: 'full'},
+      { path: 'list', component: ListComponent, data: {schema: DummyOrderSchema, object: DummyOrder}},
+      { path: 'add', component: AddComponent, data: {schema: DummyOrderSchema, object: DummyOrder}, }
     ]
   }
 ];

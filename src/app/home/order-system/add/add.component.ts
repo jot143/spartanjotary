@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SubjectService } from '../../persons/service/subject.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderSystemService } from '../order-system.service';
 import { AlertService, LoaderService } from 'src/core/components';
 import { UserService } from 'src/core/services';
+import { PersonService } from '../../persons/service/person.service';
 
 @Component({
   selector: 'app-add',
@@ -18,7 +18,7 @@ export class AddComponent implements OnInit, OnDestroy {
   schema: any;
 
   constructor(public activeRoute: ActivatedRoute,
-              public subjectService: SubjectService,
+              public personService: PersonService,
               public orderSystemService: OrderSystemService,
               public alertService: AlertService,
               public userService: UserService,
@@ -28,7 +28,7 @@ export class AddComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit() {
-    this.subjectServiceSubscriber = this.subjectService.$subjects.subscribe();
+    this.subjectServiceSubscriber = this.personService.$persons.subscribe();
     this.activeRouteSubscriber = this.activeRoute.data.subscribe((data: any) => {
       this.object = data.object;
       this.schema = data.schema;

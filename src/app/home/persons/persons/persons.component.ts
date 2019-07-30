@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { AlertService, LoaderService } from 'src/core/components';
 import { RestApiService } from 'src/core/services/rest-api.service';
-import { SubjectService } from '../service/subject.service';
+import { PersonService } from '../service/person.service';
 
 @Component({
   selector: 'app-persons',
@@ -46,7 +46,7 @@ export class PersonsComponent implements OnInit {
     },
   };
 
-  constructor(public subjectService: SubjectService,
+  constructor(public personService: PersonService,
               private dom: ElementRef,
               public alertService: AlertService,
               public loaderService: LoaderService,
@@ -75,7 +75,7 @@ export class PersonsComponent implements OnInit {
     response.subscribe((res: any) => {
       this.loaderService.dismiss();
       if (res && res.status && res.status === 'success') {
-        this.subjectService.$subjects = this.subjectService.getAll();
+        this.personService.$persons = this.personService.getAll();
         const models = this.dom.nativeElement.querySelectorAll('button[data-dismiss="modal"]');
         for (const x of models) {
           x.click();
@@ -111,7 +111,7 @@ export class PersonsComponent implements OnInit {
     response.subscribe((res: any) => {
       this.loaderService.dismiss();
       if (res && res.status && res.status === 'success') {
-        this.subjectService.$subjects = this.subjectService.getAll();
+        this.personService.$persons = this.personService.getAll();
         const models = this.dom.nativeElement.querySelectorAll('button[data-dismiss="modal"]');
         for (const x of models) {
           x.click();
@@ -141,7 +141,7 @@ export class PersonsComponent implements OnInit {
     response.subscribe((res: any) => {
       this.loaderService.dismiss();
       if (res && res.status && res.status === 'success') {
-        this.subjectService.$subjects = this.subjectService.getAll();
+        this.personService.$persons = this.personService.getAll();
         const models = this.dom.nativeElement.querySelectorAll('button[data-dismiss="modal"]');
         for (const x of models) {
           x.click();

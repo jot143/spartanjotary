@@ -170,13 +170,13 @@ app-sidebar {
 .actionIcon{
   display: flex; font-size:24px !important;padding:0 !important;cursor: pointer;
   i:last-child {
-    margin: 0 10px 0 0;
+    margin: 0 10px;
   }
   i{
     margin: 0 10px;
   }
   i:first-child {
-    margin: 0 0 0 10px;
+    margin: 0 10px;
   }
   .fa-trash{
     color: red;
@@ -194,4 +194,22 @@ app-sidebar {
 
 a{
   cursor: pointer;
+}
+
+.modal-dialog {
+  max-width: 760px !important;
+}
+
+
+.sidebar > .nav .nav-item .nav-link {
+	padding: 15px 30px 15px 20px !important;
+}
+
+.sidebar > .nav > .nav-item:not(.nav-profile) > .nav-link::before {
+	left: 5px !important;
+}
+
+
+.sidebar > .nav .nav-item:not(.hover-open) .collapse .sub-menu .nav-item .nav-link::before, .sidebar > .nav .nav-item:not(.hover-open) .collapsing .sub-menu .nav-item .nav-link::before {
+	left: 10px !important;
 }

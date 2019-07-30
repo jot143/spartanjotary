@@ -28,89 +28,17 @@ const validateName = (x, form) => {
   return true;
 };
 
-export const ChallanoutSchema: any = {
-  name: 'Challan Out',
-  object: 'challanout',
-  mulitname: 'Challan Out',
+export const DamageSchema: any = {
+  name: 'Damage',
+  object: 'damage',
+  mulitname: 'Damage',
   formAdd: {
-    type: {
-      name: 'Deal With',
-      type: 'radio',
-      option: [{ key: 'company', value: 'Company' },
-      { key: 'person', value: 'Person' },
-      ],
-      defult: 'company',
-      value: 'company',
-      order: 1,
-
-      validate: validateOption
-
-    },
-    person_id: {
-      name: 'Name Company',
-      type: 'autocomplete',
-      typing: '',
-      searchList: [],
-      callback: (x, form) => {
-        form.value = x.id;
-        form.searchList = [];
-        form.typing = x.name;
-        form.valuefull = x;
-      },
-      from: {
-        type: 'service',
-        value: 'personService.persons'
-      },
-      default: 0,
-      value: 0,
-      valuefull: {},
-      if: (x) => {
-        if (x.type.value === 'company') {
-          return true;
-        }
-        return false;
-      },
-      order: 2,
-      validate: (x, form) => {
-        if (form.type.value === 'company') {
-          return validateId(x, form);
-        }
-        return true;
-      }
-    },
-    name: {
-      name: 'Name of Person',
-      type: 'text',
-      default: '',
-      value: '',
-      if: (x) => {
-        if (x.type.value === 'person') {
-          return true;
-        }
-        return false;
-      },
-      order: 3,
-
-      validate: (x, form) => {
-        if (form.type.value === 'person') {
-          return validateName(x, form);
-        }
-        return true;
-      }
-    },
     description: {
       name: 'Description',
       type: 'textarea',
       default: '',
       value: '',
       order: 4
-    },
-    cases: {
-      name: 'Cases',
-      type: 'number',
-      default: 1,
-      value: 1,
-      order: 5
     },
     items: {
       name: 'List of Products',
@@ -211,23 +139,7 @@ export const ChallanoutSchema: any = {
     }
   },
   formView: [
-    {name: 'RefNo', key: 'id', type: 'normal'},
-    {name: 'Deal With', key: 'type', type: 'enum', values: {person: {name: 'Person'}, company: {name: 'Company'}}},
-    {name: 'Name',
-      fn: (x) => {
-                      // tslint:disable-next-line:triple-equals
-                      if (x.type == 'company') {
-                        return { key: 'person_id', type: 'autocomplete', from: {
-                          type: 'service',
-                          value: 'personService.persons'
-                        }};
-                      } else {
-                        return {key: 'name', type: 'normal' };
-                      }
-                  },
-     type: 'conditional'},
-    {name: 'Description', key: 'description', type: 'notimportant'},
-    {name: 'Cases', key: 'cases', type: 'normal'},
+    {name: 'Description', key: 'description', type: 'normal'},
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'

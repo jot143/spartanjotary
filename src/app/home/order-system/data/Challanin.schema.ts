@@ -60,7 +60,7 @@ export const ChallaninSchema: any = {
       },
       from: {
         type: 'service',
-        value: 'subjectService.subjects'
+        value: 'personService.persons'
       },
       default: 0,
       value: 0,
@@ -220,7 +220,7 @@ export const ChallaninSchema: any = {
                       if (x.type == 'company') {
                         return { key: 'person_id', type: 'autocomplete', from: {
                           type: 'service',
-                          value: 'subjectService.subjects'
+                          value: 'personService.persons'
                         }};
                       } else {
                         return {key: 'name', type: 'normal' };
@@ -245,7 +245,7 @@ export const ChallaninSchema: any = {
             type: 'autocomplete',
             from: {
               type: 'service',
-              value: 'userService.subjects'
+              value: 'productService.products'
             },
             value: '',
             valuefull: ''
@@ -262,7 +262,8 @@ export const ChallaninSchema: any = {
             value: 1
           }
         ]
-      },
+
+    },
   ],
   stock: { name: 'Stock In', fn: 'stockIn'}
 };

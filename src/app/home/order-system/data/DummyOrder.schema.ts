@@ -1,3 +1,5 @@
+import { map } from 'rxjs/operators';
+
 const validateId = (x, form) => {
   // tslint:disable-next-line:triple-equals
   if (typeof x.value == 'undefined' || x.value < 1) {
@@ -28,10 +30,10 @@ const validateName = (x, form) => {
   return true;
 };
 
-export const SaleSchema: any = {
-  name: 'Sale Order',
-  object: 'sale',
-  mulitname: 'Sale Orders',
+export const DummyOrderSchema: any = {
+  name: 'Dummy Order',
+  object: 'dummyorder',
+  mulitname: 'Dummy Order',
   formAdd: {
     type: {
       name: 'Deal With',
@@ -42,7 +44,9 @@ export const SaleSchema: any = {
       defult: 'company',
       value: 'company',
       order: 1,
+
       validate: validateOption
+
     },
     person_id: {
       name: 'Name Company',
@@ -96,133 +100,17 @@ export const SaleSchema: any = {
         return true;
       }
     },
-    quotation_ref: {
-      name: 'Quotation Ref No',
-      type: 'text',
-      default: '',
-      value: '',
-      order: 4
-    },
-    purchase_ref: {
-      name: 'Purchase Ref No',
-      type: 'text',
-      default: '',
-      value: '',
-      order: 4
-    },
-    gst_type: {
-      name: 'GST Type',
-      type: 'radio',
-      option: [{ key: 'sgst-cgst', value: 'SGST-CGST' },
-               { key: 'igst', value: 'IGST' },
-      ],
-      defult: 'sgst-cgst',
-      value: 'sgst-cgst',
-      order: 5,
-      validate: validateOption
-    },
-    cases: {
-      name: 'Cases',
-      type: 'number',
-      default: 1,
-      value: 1,
-      order: 6
-    },
-    contact_number: {
-      name: 'Contact Number',
-      type: 'text',
-      default: '0181-5056987',
-      value: '0181-5056987',
-      order: 7
-    },
-    contact_person: {
-      name: 'Contact Person',
-      type: 'text',
-      default: 'After Delivery',
-      value: 'After Delivery',
-      order: 8
-    },
-    bill_to: {
-      name: 'Bill To',
-      type: 'text',
-      default: '',
-      value: '',
-      order: 9
-    },
-    ship_to: {
-      name: 'Place of Supply',
-      type: 'text',
-      default: '',
-      value: '',
-      order: 10
-    },
-    ship_via: {
-      name: 'Ship Through',
-      type: 'text',
-      default: '',
-      value: '',
-      order: 11
-    },
-    transport_mode: {
-      name: 'Transport Mode',
-      type: 'text',
-      default: '',
-      value: '',
-      order: 11
-    },
     delivery_date: {
       name: 'Delivery Date',
       type: 'text',
-      default: '',
-      value: '',
-      order: 12
-    },
-    gr_no: {
-      name: 'Gr Number',
-      type: 'text',
-      default: '',
-      value: '',
-      order: 13
-    },
-    gr_date: {
-      name: 'Gr Date',
-      type: 'text',
-      default: '',
-      value: '',
-      order: 14
-    },
-    discount_percent: {
-      name: 'Discount Percentage',
-      type: 'number',
-      default: 0,
-      value: 0,
-      order: 15,
-      min: 0,
-      max: 100,
-      validate: (x, formData) => {
-        // tslint:disable-next-line:radix
-        x.value = parseInt(x.value);
-        // tslint:disable-next-line:triple-equals
-        if (typeof x.value == 'undefined' || x.value < x.min) {
-          return { status: false, msg: 'Minimum discount must be ' + x.min };
-        }
-
-        if (x.value > x.max) {
-          return { status: false, msg: 'Maximum discount must be ' + x.min };
-        }
-
-        if (Number.isInteger(x.value) === false) {
-          return { status: false, msg: 'Please ' + x.name + ', is not integer' };
-        }
-        return true;
-      },
+      order: 4
     },
     description: {
       name: 'Description',
       type: 'textarea',
       default: '',
       value: '',
-      order: 14
+      order: 5
     },
     items: {
       name: 'List of Products',
@@ -251,8 +139,7 @@ export const SaleSchema: any = {
           default: 0,
           value: 0,
           valuefull: {},
-          validate: validateId,
-          order: 1
+          validate: validateId
         },
         product_sku: {
           name: 'Code',
@@ -270,8 +157,7 @@ export const SaleSchema: any = {
               return false;
             }
             return true;
-          },
-          order: 2
+          }
         },
         quantity: {
           name: 'Qunatity',
@@ -289,55 +175,7 @@ export const SaleSchema: any = {
               return { status: false, msg: 'Please ' + x.name + ', is not integer' };
             }
             return true;
-          },
-          order: 3
-        },
-        price: {
-          name: 'Price',
-          type: 'text',
-          default: 0,
-          value: 0,
-          min: 0,
-          validate: (x, formData) => {
-            // tslint:disable-next-line:radix
-            x.value = parseInt(x.value);
-            // tslint:disable-next-line:triple-equals
-            if (typeof x.value == 'undefined' || x.value < x.min) {
-              return { status: false, msg: 'Minimum price must be ' + x.min };
-            }
-
-            if (Number.isInteger(x.value) === false) {
-              return { status: false, msg:  x.name + ' must be a integer' };
-            }
-            return true;
-          },
-          order: 4
-        },
-        discount_percent: {
-          name: 'Discount Percentage',
-          type: 'text',
-          default: 0,
-          value: 0,
-          min: 0,
-          max: 100,
-          validate: (x, formData) => {
-            // tslint:disable-next-line:radix
-            x.value = parseInt(x.value);
-            // tslint:disable-next-line:triple-equals
-            if (typeof x.value == 'undefined' || x.value < x.min) {
-              return { status: false, msg: 'Minimum discount must be ' + x.min };
-            }
-
-            if (x.value > x.max) {
-              return { status: false, msg: 'Maximum discount must be ' + x.min };
-            }
-
-            if (Number.isInteger(x.value) === false) {
-              return { status: false, msg: 'Please ' + x.name + ', is not integer' };
-            }
-            return true;
-          },
-          order: 5
+          }
         },
 
         submit: {
@@ -356,7 +194,7 @@ export const SaleSchema: any = {
       },
       default: [],
       value: [],
-      order: 15,
+      order: 7,
 
       validate: (x, form) => {
         // tslint:disable-next-line:triple-equals
@@ -373,7 +211,6 @@ export const SaleSchema: any = {
     }
   },
   formView: [
-    {name: 'RefNo', key: 'id', type: 'normal'},
     {name: 'Deal With', key: 'type', type: 'enum', values: {person: {name: 'Person'}, company: {name: 'Company'}}},
     {name: 'Name',
       fn: (x) => {
@@ -388,26 +225,12 @@ export const SaleSchema: any = {
                       }
                   },
      type: 'conditional'},
-    {name: 'Purchase RefNo', key: 'purchase_ref', type: 'normal'},
-    {name: 'Quotation RefNo', key: 'quotation_ref', type: 'normal'},
-    {name: 'Cases', key: 'cases', type: 'normal'},
-    {name: 'GST Type', key: 'gst_type', type: 'enum', values: { 'sgst-cgst': {name: 'SGST-CGST'}, igst: {name: 'IGST'}}},
-    {name: 'Bill To', key: 'bill_to', type: 'notimportant'},
-    {name: 'Contact Person', key: 'contact_person', type: 'notimportant'},
-    {name: 'Contact Number', key: 'contact_number', type: 'notimportant'},
-    {name: 'Ship To', key: 'ship_to', type: 'notimportant'},
-    {name: 'Ship Via', key: 'ship_via', type: 'notimportant'},
-    {name: 'Transport Mode', key: 'transport_mode', type: 'notimportant'},
-    {name: 'Delivery Date', key: 'delivery_date', type: 'notimportant'},
-    {name: 'Gr Number', key: 'gr_no', type: 'notimportant'},
-    {name: 'Gr Date', key: 'gr_date', type: 'notimportant'},
+    {name: 'Delivery Date', key: 'delivery_date', type: 'normal'},
     {name: 'Description', key: 'description', type: 'notimportant'},
-    {name: 'Discount', key: 'discount', type: 'notimportant'},
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'
     }},
-    {name: 'Status', key: 'status', type: 'enum', values: {init: {name: 'Initialize'}, stockout: {name: 'Stock Out'}}},
     {name: 'Date & Time', key: 'created_datetime', type: 'normal'},
     { name: 'List of Products',
       key: 'items',
@@ -419,7 +242,7 @@ export const SaleSchema: any = {
             type: 'autocomplete',
             from: {
               type: 'service',
-              value: 'userService.subjects'
+              value: 'productService.products'
             },
             value: '',
             valuefull: ''
@@ -430,27 +253,36 @@ export const SaleSchema: any = {
             type: 'normal'
           },
           {
-            name: 'Qunatity',
+            name: 'Order Qty',
             key: 'quantity',
             type: 'normal',
             value: 1
           },
           {
-            name: 'Price',
-            key: 'price',
-            type: 'text',
-            value: 0
+            name: 'Available Qty',
+            key: 'product_id',
+            type: 'async',
+            value: (service, id, x) => {
+              return service.inventoryService.getQuantity(id).pipe(
+                map((res: any) => {
+                  return x.available_qty = res;
+
+                }));
+            },
+            valuefull: ''
           },
           {
-            name: 'Discount %',
-            key: 'discount_percent',
-            type: 'text',
-            value: 0
-          }
+            name: 'Need Qty',
+            type: 'calculate',
+            value: (x) => {
+              // tslint:disable-next-line:radix
+              return parseInt(x.quantity) - parseInt(x.available_qty) ;
+            }
+          },
         ]
       },
   ],
-  stock: { name: 'Stock Out', fn: 'stockOut'}
+  stock: false
 };
 
 

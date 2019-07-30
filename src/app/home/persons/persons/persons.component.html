@@ -449,7 +449,7 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody *ngIf="(subjectService.$subjects | async) as products; else loading">
+            <tbody *ngIf="(personService.$persons | async) as products; else loading">
               <tr *ngFor="let x of products; let i = index">
                 <td style="width: 50px">{{ i+1 }}</td>
                 <td style="width: 50px">{{ x.name }}</td>
@@ -472,8 +472,8 @@
           <ng-template #loading>
             <div>Loading...</div>
           </ng-template>
-          <div class="refresh" *ngIf="subjectService.subjects.length == 0"
-            (click)="subjectService.$subjects = subjectService.getAll()">
+          <div class="refresh" *ngIf="personService.persons.length == 0"
+            (click)="personService.$person = personService.getAll()">
             <button class="refresh-button"></button>
           </div>
         </div>

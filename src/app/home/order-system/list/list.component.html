@@ -22,7 +22,7 @@
                   <tr *ngIf="form.type == 'conditional'">
                       <ng-container *ngIf="form.fn(formView).type == 'autocomplete'">
                           <td>{{ form.name }}</td>
-                          <td>{{ orderSystemService.getNameOfAutoComplete(form.fn(formView) ,formView[form.fn(formView).key]) }}</td>
+                          <td>{{ orderSystemService.getNameOfAutoComplete(form.fn(formView) ,formView[form.fn(formView).key],formView) }}</td>
                       </ng-container>
                       <ng-container *ngIf="form.fn(formView).type == 'normal'">
                           <td>{{ form.name }}</td>
@@ -31,7 +31,7 @@
                     </tr>
                   <tr *ngIf="form.type == 'autocomplete'">
                       <td>{{ form.name }}</td>
-                      <td>{{ orderSystemService.getNameOfAutoComplete(form ,formView[form.key]) }}</td>
+                      <td>{{ orderSystemService.getNameOfAutoComplete(form ,formView[form.key], formView) }}</td>
                   </tr>
                   <tr *ngIf="form.type == 'enum'">
                       <td>{{ form.name }}</td>
@@ -44,15 +44,25 @@
                           <ng-container *ngIf="formView[form.key]">
                            <tr>
                              <th>#</th>
-                             <th>Product Name</th>
-                             <th>Code</th>
-                             <th>Qty</th>
+                             <ng-container *ngFor="let childForm of form.formView">
+                                <td>{{ childForm.name }}</td>
+                              </ng-container>
                            </tr>
                            <tr *ngFor="let x of formView[form.key]; let i = index">
                              <td>{{ i+1 }}</td>
-                             <td>{{ x.product_id }}</td>
-                             <td>{{ x.product_sku }}</td>
-                             <td>{{ x.quantity }}</td>
+                             <ng-container *ngFor="let childForm of form.formView">
+                              <td *ngIf="childForm.type=='autocomplete'">{{ orderSystemService.getNameOfAutoComplete( childForm, x[childForm.key], x) }}</td>
+                              <td *ngIf="childForm.type=='normal'">{{ x[childForm.key] }}</td>
+                              <td *ngIf="childForm.type=='autocompleteDetail'">
+                                {{ x[childForm.from][childForm.key] }}
+                              </td>
+                              <td *ngIf="childForm.type=='calculate'">
+                                {{ childForm.value(x) }}
+                              </td>
+                              <td *ngIf="childForm.type=='async'">
+                                  {{ childForm.value(orderSystemService, x[childForm.key], x) | async }}
+                              </td>
+                            </ng-container>
                            </tr>
                            <tr *ngIf="formView[form.key] == 0">
                                <td colspan="4">No {{ form.key }}</td>
@@ -98,24 +108,24 @@
           <ng-container *ngIf="schema.object">
           <tbody *ngIf="($subject[schema.object] | async) as subjects; else loading">
             <tr *ngFor="let x of subjects; let i = index">
-              <td style="width: 50px">{{ i+1 }}</td>
+              <td>{{ i+1 }}</td>
               <ng-container *ngFor="let form of schema.formView">
                 <td *ngIf="form.type == 'normal'">
                     {{ x[form.key] }}
                 </td>
                 <td *ngIf="form.type == 'conditional'">
                     <ng-container *ngIf="form.fn(x).type == 'autocomplete'">
-                        {{ orderSystemService.getNameOfAutoComplete(form.fn(x) ,x[form.fn(x).key]) }}
+                        {{ orderSystemService.getNameOfAutoComplete(form.fn(x) ,x[form.fn(x).key], x) }}
                     </ng-container>
                     <ng-container *ngIf="form.fn(x).type == 'normal'">
                         {{ x[form.fn(x).key] }}
                     </ng-container>
                 </td>
                 <td *ngIf="form.type == 'autocomplete'">
-                    {{ orderSystemService.getNameOfAutoComplete(form ,x[form.key]) }}
+                    {{ orderSystemService.getNameOfAutoComplete(form ,x[form.key],x) }}
                 </td>
                 <td *ngIf="form.type == 'enum'">
-                  <!-- {{ form.values[x[form.key]].name }} -->
+                  {{ form.values[x[form.key]].name }}
                 </td>
               </ng-container>
               <td style="padding:0">
@@ -128,7 +138,7 @@
               </td>
             </tr>
             <tr *ngIf="subjects.length == 0">
-              <td colspan="8">No {{ schema.name }}</td>
+              <td colspan="9">No {{ schema.name }}</td>
             </tr>
           </tbody>
           </ng-container>

@@ -57,7 +57,7 @@ export const PurchaseSchema: any = {
       },
       from: {
         type: 'service',
-        value: 'subjectService.subjects'
+        value: 'personService.persons'
       },
       default: 0,
       value: 0,
@@ -99,8 +99,8 @@ export const PurchaseSchema: any = {
     quotation_ref: {
       name: 'Quotation Ref No',
       type: 'text',
-      default: 'Spartan Internatinal',
-      value: 'Spartan Internatinal',
+      default: '',
+      value: '',
       order: 4
     },
     gst_type: {
@@ -333,14 +333,14 @@ export const PurchaseSchema: any = {
                       if (x.type == 'company') {
                         return { key: 'person_id', type: 'autocomplete', from: {
                           type: 'service',
-                          value: 'subjectService.subjects'
+                          value: 'personService.persons'
                         }};
                       } else {
                         return {key: 'name', type: 'normal' };
                       }
                   },
      type: 'conditional'},
-    {name: 'Quotation RefNo', key: 'quatation_ref', type: 'normal'},
+    {name: 'Quotation RefNo', key: 'quotation_ref', type: 'normal'},
     {name: 'GST Type', key: 'gst_type', type: 'enum', values: { 'sgst-cgst': {name: 'SGST-CGST'}, igst: {name: 'IGST'}}},
     {name: 'Bill To', key: 'bill_to', type: 'notimportant'},
     {name: 'Contact Person', key: 'contact_person', type: 'notimportant'},
@@ -349,7 +349,7 @@ export const PurchaseSchema: any = {
     {name: 'Ship Via', key: 'ship_via', type: 'notimportant'},
     {name: 'Delivery Date', key: 'delivery_date', type: 'notimportant'},
     {name: 'Delivery Terms', key: 'delivery_terms', type: 'notimportant'},
-    {name: 'Payment Terms', key: 'delivery_terms', type: 'notimportant'},
+    {name: 'Payment Terms', key: 'payment_terms', type: 'notimportant'},
     {name: 'Description', key: 'description', type: 'notimportant'},
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
@@ -367,7 +367,7 @@ export const PurchaseSchema: any = {
             type: 'autocomplete',
             from: {
               type: 'service',
-              value: 'userService.subjects'
+              value: 'productService.products'
             },
             value: '',
             valuefull: ''
@@ -386,14 +386,28 @@ export const PurchaseSchema: any = {
           {
             name: 'Price',
             key: 'price',
-            type: 'text',
+            type: 'normal',
             value: 0
           },
           {
-            name: 'Discount %',
+            name: 'Dist. %',
             key: 'discount_percent',
-            type: 'text',
+            type: 'normal',
             value: 0
+          },
+          {
+            name: 'GST %',
+            key: 'gstpercentage',
+            type: 'autocompleteDetail',
+            from: 'product_id_detail',
+          },
+          {
+            name: 'Total',
+            type: 'calculate',
+            value: (x) => {
+              // tslint:disable-next-line:radix
+              return parseInt(x.price) + (x.price * x.product_id_detail.gstpercentage / 100);
+            }
           }
         ]
       },

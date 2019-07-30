@@ -28,7 +28,7 @@
               <div class="list">
                 <div *ngFor="let node of form.value.searchList" class="relative">
                   <label class="accordion active" (click)="form.value.callback(node, form.value)">
-                    {{node.name}} {{ node.sku }} {{ node.size }} {{ node.color }}
+                    {{node.name}} {{ node.sku }} {{ node.size }} {{ node.color }} {{ node.street }} {{ node.city }} {{ node.state }}
                   </label>
                 </div>
               </div>
@@ -73,7 +73,7 @@
                   <ng-container *ngFor="let y of x | keyvalue">
                     <td>
                       <ng-container *ngIf="form.value.form[y.key].type == 'autocomplete'; else normal">
-                        {{ orderSystemService.getNameOfAutoComplete(form.value.form[y.key], y.value) }}
+                        {{ orderSystemService.getNameOfAutoComplete(form.value.form[y.key], y.value, y) }}
                       </ng-container>
                       <ng-template #normal>
                           {{ y.value }}
