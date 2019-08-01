@@ -56,7 +56,7 @@ export const DummyOrderSchema: any = {
       callback: (x, form) => {
         form.value = x.id;
         form.searchList = [];
-        form.typing = x.name;
+        form.typing = x.name + ' ' + x.street + ' ' + x.city + ' ' + x.state;
         form.valuefull = x;
       },
       from: {

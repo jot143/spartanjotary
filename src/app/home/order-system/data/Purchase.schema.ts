@@ -52,7 +52,7 @@ export const PurchaseSchema: any = {
       callback: (x, form) => {
         form.value = x.id;
         form.searchList = [];
-        form.typing = x.name;
+        form.typing = x.name + ' ' + x.street + ' ' + x.city + ' ' + x.state;
         form.valuefull = x;
       },
       from: {
@@ -254,6 +254,7 @@ export const PurchaseSchema: any = {
           validate: (x, formData) => {
             // tslint:disable-next-line:radix
             x.value = parseInt(x.value);
+            // tslint:disable-next-line:triple-equals
             if (typeof x.value == 'undefined' || x.value < x.min) {
               return { status: false, msg: 'Minimum price must be ' + x.min };
             }

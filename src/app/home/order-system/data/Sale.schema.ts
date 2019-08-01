@@ -52,7 +52,7 @@ export const SaleSchema: any = {
       callback: (x, form) => {
         form.value = x.id;
         form.searchList = [];
-        form.typing = x.name;
+        form.typing = x.name + ' ' + x.street + ' ' + x.city + ' ' + x.state;
         form.valuefull = x;
       },
       from: {
@@ -419,7 +419,7 @@ export const SaleSchema: any = {
             type: 'autocomplete',
             from: {
               type: 'service',
-              value: 'userService.subjects'
+              value: 'productService.products'
             },
             value: '',
             valuefull: ''
@@ -438,14 +438,28 @@ export const SaleSchema: any = {
           {
             name: 'Price',
             key: 'price',
-            type: 'text',
+            type: 'normal',
             value: 0
           },
           {
             name: 'Discount %',
             key: 'discount_percent',
-            type: 'text',
+            type: 'normal',
             value: 0
+          },
+          {
+            name: 'GST %',
+            key: 'gstpercentage',
+            type: 'autocompleteDetail',
+            from: 'product_id_detail',
+          },
+          {
+            name: 'Total',
+            type: 'calculate',
+            value: (x) => {
+              // tslint:disable-next-line:radix
+              return parseInt(x.price) + (x.price * x.product_id_detail.gstpercentage / 100);
+            }
           }
         ]
       },
