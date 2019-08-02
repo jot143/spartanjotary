@@ -11,8 +11,6 @@ import { ProductsModule } from './home/products/products.module';
 import { FormsModule } from '@angular/forms';
 import { PersonsModule } from './home/persons/persons.module';
 import { InventoryModule } from './home/inventory/inventory.module';
-import { PrintPurchaseComponent } from './print-purchase/print-purchase.component';
-
 
 
 @NgModule({
@@ -20,7 +18,6 @@ import { PrintPurchaseComponent } from './print-purchase/print-purchase.componen
     AppComponent,
     AlertComponent,
     LoaderComponent,
-    PrintPurchaseComponent,
   ],
   imports: [
     BrowserModule,

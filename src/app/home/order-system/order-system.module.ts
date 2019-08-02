@@ -9,9 +9,10 @@ import { OrderModule } from 'ngx-order-pipe';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import { ListComponent } from './list/list.component';
 import { AddComponent } from './add/add.component';
+import { PrintPurchaseComponent } from './print-purchase/print-purchase.component';
 
 @NgModule({
-  declarations: [OrderSystemComponent, FormBuilderComponent, ListComponent, AddComponent],
+  declarations: [OrderSystemComponent, FormBuilderComponent, ListComponent, AddComponent, PrintPurchaseComponent],
   imports: [
     CommonModule,
     OrderSystemRoutingModule,

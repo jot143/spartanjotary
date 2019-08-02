@@ -1,34 +1,5 @@
 import { map } from 'rxjs/operators';
-
-const validateId = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.value < 1) {
-    return { status: false, msg: 'Please ' + x.name };
-  }
-
-  // tslint:disable-next-line:triple-equals
-  if (isNaN(x.value) == true) {
-    return { status: false, msg: 'Please ' + x.name + ', is not integer' };
-  }
-
-  return true;
-};
-
-const validateOption = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.option.find((e) => e.key == x.value) === false) {
-    return { status: false, msg: 'Please Select' + x.name };
-  }
-  return true;
-};
-
-const validateName = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.value.length < 3) {
-    return { status: false, msg: 'Please fill proper name.' };
-  }
-  return true;
-};
+import { validateOption, validateId, validateName, productStr } from './Const';
 
 export const DummyOrderSchema: any = {
   name: 'Dummy Order',
@@ -53,10 +24,13 @@ export const DummyOrderSchema: any = {
       type: 'autocomplete',
       typing: '',
       searchList: [],
+      searchListCallback: (x) => {
+        return x.name + '| Address: ' + x.street + ' ' + x.city + ' ' + x.state;
+      },
       callback: (x, form) => {
         form.value = x.id;
         form.searchList = [];
-        form.typing = x.name + ' ' + x.street + ' ' + x.city + ' ' + x.state;
+        form.typing = x.name + '| Address: ' + x.street + ' ' + x.city + ' ' + x.state;
         form.valuefull = x;
       },
       from: {
@@ -103,7 +77,14 @@ export const DummyOrderSchema: any = {
     delivery_date: {
       name: 'Delivery Date',
       type: 'text',
-      order: 4
+      order: 4,
+      validate: (x, form) => {
+        // tslint:disable-next-line:triple-equals
+        if (typeof x.value == 'undefined' || x.value.length < 3) {
+          return { status: false, msg: 'Please fill deliver date.' };
+        }
+        return true;
+      }
     },
     description: {
       name: 'Description',
@@ -126,11 +107,12 @@ export const DummyOrderSchema: any = {
           typing: '',
           searchList: [],
           matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
+          searchListCallback: (x) => productStr(x),
           callback: (x, form) => {
             form.value = x.id;
             form.valuefull = x;
             form.searchList = [];
-            form.typing = x.name;
+            form.typing = productStr(x);
           },
           from: {
             type: 'service',
@@ -219,6 +201,8 @@ export const DummyOrderSchema: any = {
                         return { key: 'person_id', type: 'autocomplete', from: {
                           type: 'service',
                           value: 'personService.persons'
+                        }, callback: (res: any) => {
+                          return res.name + ' | Address: ' + res.street + ' ' + res.city + ' ' + res.state;
                         }};
                       } else {
                         return {key: 'name', type: 'normal' };
@@ -230,6 +214,8 @@ export const DummyOrderSchema: any = {
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'
+    }, callback: (x: any) => {
+      return x.name;
     }},
     {name: 'Date & Time', key: 'created_datetime', type: 'normal'},
     { name: 'List of Products',
@@ -245,7 +231,8 @@ export const DummyOrderSchema: any = {
               value: 'productService.products'
             },
             value: '',
-            valuefull: ''
+            valuefull: '',
+            callback: (x) => productStr(x),
           },
           {
             name: 'Code',

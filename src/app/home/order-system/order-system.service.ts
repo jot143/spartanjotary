@@ -63,6 +63,23 @@ export class OrderSystemService {
     }
   }
 
+  getDetailofAutoComplete(field, id, obj = {}) {
+     const res = field.from.value.split('.');
+     const serviceName = res[0];
+     const serviceProperty = res[1];
+     const service = this;
+
+     const ary = service[serviceName][serviceProperty];
+     for (const x of ary) {
+       // tslint:disable-next-line:triple-equals
+       if (x.id == id) {
+        const key = field.key + '_detail';
+        obj[key] = x;
+        return field.callback(x, field);
+       }
+     }
+  }
+
   getNameOfAutoComplete(field, id, obj) {
     // console.log("name", field, id);
     const res = field.from.value.split('.');

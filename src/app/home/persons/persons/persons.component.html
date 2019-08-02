@@ -93,14 +93,14 @@
 
               <div class="form-group">
                 <label class="label">Country</label>
-                <select [(ngModel)]="form.country" name="india" class="form-control" [value]="india">
+                <select [(ngModel)]="form.country" name="india" class="form-control">
                   <option value="india">India</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label class="label">GST Type</label>
-                <select [(ngModel)]="form.gsttype" name="gsttype" class="form-control" [value]="unregister">
+                <select [(ngModel)]="form.gsttype" name="gsttype" class="form-control">
                   <option value="register">Register</option>
                   <option value="unregister">Un Register</option>
                 </select>
@@ -255,14 +255,14 @@
 
               <div class="form-group">
                 <label class="label">Country</label>
-                <select [(ngModel)]="formEdit.country" name="india" class="form-control" [value]="india">
+                <select [(ngModel)]="formEdit.country" name="india" class="form-control">
                   <option value="india">India</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label class="label">GST Type</label>
-                <select [(ngModel)]="formEdit.gsttype" name="gsttype" class="form-control" [value]="unregister">
+                <select [(ngModel)]="formEdit.gsttype" name="gsttype" class="form-control">
                   <option value="register">Register</option>
                   <option value="unregister">Un Register</option>
                 </select>
@@ -404,7 +404,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
           Are you sure to delete? &nbsp;
-          <button type="button" class="btn btn-primary" (click)="delete(viewproduct)">Delete</button>
+          <button type="button" class="btn btn-primary" (click)="delete()">Delete</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>

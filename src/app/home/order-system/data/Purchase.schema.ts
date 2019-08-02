@@ -1,32 +1,4 @@
-const validateId = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.value < 1) {
-    return { status: false, msg: 'Please ' + x.name };
-  }
-
-  // tslint:disable-next-line:triple-equals
-  if (isNaN(x.value) == true) {
-    return { status: false, msg: 'Please ' + x.name + ', is not integer' };
-  }
-
-  return true;
-};
-
-const validateOption = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.option.find((e) => e.key == x.value) === false) {
-    return { status: false, msg: 'Please Select' + x.name };
-  }
-  return true;
-};
-
-const validateName = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.value.length < 3) {
-    return { status: false, msg: 'Please fill proper name.' };
-  }
-  return true;
-};
+import { validateOption, validateId, validateName, productStr } from './Const';
 
 export const PurchaseSchema: any = {
   name: 'Purchase Order',
@@ -49,10 +21,13 @@ export const PurchaseSchema: any = {
       type: 'autocomplete',
       typing: '',
       searchList: [],
+      searchListCallback: (x) => {
+        return x.name + '| Address: ' + x.street + ' ' + x.city + ' ' + x.state;
+      },
       callback: (x, form) => {
         form.value = x.id;
         form.searchList = [];
-        form.typing = x.name + ' ' + x.street + ' ' + x.city + ' ' + x.state;
+        form.typing = x.name + '| Address: ' + x.street + ' ' + x.city + ' ' + x.state;
         form.valuefull = x;
       },
       from: {
@@ -191,11 +166,12 @@ export const PurchaseSchema: any = {
           matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
           typing: '',
           searchList: [],
+          searchListCallback: (x) => productStr(x),
           callback: (x, form) => {
             form.value = x.id;
             form.valuefull = x;
             form.searchList = [];
-            form.typing = x.name;
+            form.typing = productStr(x);
           },
           from: {
             type: 'service',
@@ -335,7 +311,11 @@ export const PurchaseSchema: any = {
                         return { key: 'person_id', type: 'autocomplete', from: {
                           type: 'service',
                           value: 'personService.persons'
-                        }};
+                        },
+                        callback: (res: any) => {
+                          return res.name + ' | Address: ' + res.street + ' ' + res.city + ' ' + res.state;
+                        }
+                      };
                       } else {
                         return {key: 'name', type: 'normal' };
                       }
@@ -354,7 +334,10 @@ export const PurchaseSchema: any = {
     {name: 'Description', key: 'description', type: 'notimportant'},
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
-      value: 'userService.subjects'
+      value: 'userService.subjects',
+
+    }, callback: (x: any) => {
+      return x.name;
     }},
     {name: 'Status', key: 'status', type: 'enum', values: {init: {name: 'Initialize'}, stockin: {name: 'Stock In'}}},
     {name: 'Date & Time', key: 'created_datetime', type: 'normal'},
@@ -371,7 +354,8 @@ export const PurchaseSchema: any = {
               value: 'productService.products'
             },
             value: '',
-            valuefull: ''
+            valuefull: '',
+            callback: (x) => productStr(x),
           },
           {
             name: 'Code',

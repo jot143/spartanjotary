@@ -28,7 +28,7 @@
               <div class="list">
                 <div *ngFor="let node of form.value.searchList" class="relative">
                   <label class="accordion active" (click)="form.value.callback(node, form.value)">
-                    {{node.name}} {{ node.sku }} {{ node.size }} {{ node.color }} {{ node.street }} {{ node.city }} {{ node.state }}
+                      {{ form.value.searchListCallback(node) }}
                   </label>
                 </div>
               </div>

@@ -1,32 +1,4 @@
-const validateId = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.value < 1) {
-    return { status: false, msg: 'Please ' + x.name };
-  }
-
-  // tslint:disable-next-line:triple-equals
-  if (isNaN(x.value) == true) {
-    return { status: false, msg: 'Please ' + x.name + ', is not integer' };
-  }
-
-  return true;
-};
-
-const validateOption = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.option.find((e) => e.key == x.value) === false) {
-    return { status: false, msg: 'Please Select' + x.name };
-  }
-  return true;
-};
-
-const validateName = (x, form) => {
-  // tslint:disable-next-line:triple-equals
-  if (typeof x.value == 'undefined' || x.value.length < 3) {
-    return { status: false, msg: 'Please fill proper name.' };
-  }
-  return true;
-};
+import { validateOption, validateId, validateName, productStr } from './Const';
 
 export const DamageSchema: any = {
   name: 'Damage',
@@ -53,12 +25,13 @@ export const DamageSchema: any = {
           type: 'autocomplete',
           typing: '',
           searchList: [],
+          searchListCallback: (x) => productStr(x),
           matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
           callback: (x, form) => {
             form.value = x.id;
             form.valuefull = x;
             form.searchList = [];
-            form.typing = x.name;
+            form.typing = productStr(x);
           },
           from: {
             type: 'service',
@@ -143,6 +116,8 @@ export const DamageSchema: any = {
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'
+    }, callback: (x: any) => {
+      return x.name;
     }},
     {name: 'Status', key: 'status', type: 'enum', values: {init: {name: 'Initialize'}, stockout: {name: 'Stock Out'}}},
     {name: 'Date & Time', key: 'created_datetime', type: 'normal'},
@@ -159,7 +134,8 @@ export const DamageSchema: any = {
               value: 'productService.products'
             },
             value: '',
-            valuefull: ''
+            valuefull: '',
+            callback: (x) => productStr(x),
           },
           {
             name: 'Code',
