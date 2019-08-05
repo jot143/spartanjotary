@@ -1,0 +1,71 @@
+<div id="printarea" ng-controller="PrintController"
+  style="margin: auto;  display: flex; flex-direction: column; position: relative; ">
+  <h1 style="text-align: center; margin: 0;"><img src="assets/images/logo.png"
+      width="400px" /></h1>
+  <table width="100% flex-1" class="table table-striped table-bordered table-hover" style="margin: 0;">
+    <tr>
+      <td style="width: 40%;" rowspan="2">
+        <div style="line-height: 20px;">
+          <strong>Details of Recevier(Billed To):</strong><br />
+          <ng-container *ngIf="order.type == 'company'">
+            {{ order.person_id_detail.name }} <br/>
+            {{ order.person_id_detail.street }}  {{ order.person_id_detail.city }} <br/>
+            {{ order.person_id_detail.state }} {{ order.person_id_detail.country }} <br/>
+            <strong>GSTIN: {{ order.person_id_detail.gstin }}</strong>
+            <br /><br />
+            Contact No: {{ order.person_id_detail.mobile }}<br />
+            Contact Person: {{ order.person_id_detail.contactperson }}<br />
+            Email: {{ order.person_id_detail.email }}<br />
+          </ng-container>
+          <ng-container *ngIf="this.order.type == 'person'">
+              {{ order.name }}
+          </ng-container>
+        </div>
+      </td>
+      <td>
+        <strong style="font-weight: 800;">Packing Slip No: &nbsp;{{ order.id }}</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Order No: {{ order.id }}</strong>
+      </td>
+    </tr>
+  </table>
+
+  <div style="flex:1;">
+    <table class="table table-striped table-bordered table-hover" style="margin: 0;width: 100%; height: 100%;">
+      <tr style="height: 35px;" >
+        <th>Sr.</th>
+        <th>Code</th>
+        <th>Description of Goods</th>
+        <th>QTY / Unit</th>
+      </tr>
+      <tr class="datasheet odd gradeX" *ngFor="let x of order.items; let i = index">
+        <td>{{ i+1 }}</td>
+        <td>{{ x.product_id_detail.sku }}</td>
+        <td style="font-size: 12px;">
+            {{ x.product_id_detail.name }}<br />
+          <strong>HSN: </strong>{{ x.product_id_detail.hsn }}<br />
+          <strong>Size: </strong>{{ x.product_id_detail.size }}<br />
+          <strong>Color: </strong>{{ x.product_id_detail.color }}
+        </td>
+        <td>{{ x.quantity }} {{ x.product_id_detail.quantityin }}</td>
+      </tr>
+    </table>
+  </div>
+  <div>
+
+    <table width="100%" class="table table-striped table-bordered table-hover">
+      <tr>
+        <td>
+          Packed By and Signature <br /><br /><br />
+        </td>
+        <td style="text-align: right;">
+          <span style="font-size: 12px;"><strong>Checked By</strong></span>
+          <br /><br /><br />
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

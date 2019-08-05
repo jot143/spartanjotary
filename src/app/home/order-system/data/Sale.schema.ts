@@ -21,7 +21,7 @@ export const SaleSchema: any = {
       type: 'autocomplete',
       typing: '',
       searchList: [],
-      searchListCallback: (x) => {
+      viewCallback: (x) => {
         return x.name + '| Address: ' + x.street + ' ' + x.city + ' ' + x.state;
       },
       callback: (x, form) => {
@@ -213,7 +213,7 @@ export const SaleSchema: any = {
           typing: '',
           searchList: [],
           matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
-          searchListCallback: (x) => productStr(x),
+          viewCallback: (x) => productStr(x),
           callback: (x, form) => {
             form.value = x.id;
             form.valuefull = x;
@@ -358,7 +358,7 @@ export const SaleSchema: any = {
                         return { key: 'person_id', type: 'autocomplete', from: {
                           type: 'service',
                           value: 'personService.persons'
-                        }, callback: (res: any) => {
+                        }, viewCallback: (res: any) => {
                           return res.name + ' | Address: ' + res.street + ' ' + res.city + ' ' + res.state;
                         }
                       };
@@ -385,10 +385,11 @@ export const SaleSchema: any = {
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'
-    }, callback: (x: any) => {
+    }, viewCallback: (x: any) => {
       return x.name;
     }},
-    {name: 'Status', key: 'status', type: 'enum', values: {init: {name: 'Initialize'}, stockout: {name: 'Stock Out'}}},
+    {name: 'Status', key: 'status', type: 'enum',
+    values: {init: {name: 'Initialize'}, stockout: {name: 'Stock Out'}, deleted: { name: 'Deleted' }}},
     {name: 'Date & Time', key: 'created_datetime', type: 'normal'},
     { name: 'List of Products',
       key: 'items',
@@ -404,7 +405,7 @@ export const SaleSchema: any = {
             },
             value: '',
             valuefull: '',
-            callback: (x) => productStr(x),
+            viewCallback: (x) => productStr(x),
           },
           {
             name: 'Code',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { OrderSystemService } from '../order-system.service';
 import { AlertService } from 'src/core/components';
 import { UserService } from 'src/core/services';
@@ -14,6 +14,8 @@ export class ListComponent implements OnInit {
   object: any;
   schema: any;
 
+  ViewFormBtn: any = [];
+
   $subject: any = {};
   Me: any = this;
 
@@ -22,6 +24,7 @@ export class ListComponent implements OnInit {
   constructor(public activeRoute: ActivatedRoute,
               public alertService: AlertService,
               public userService: UserService,
+              public router: Router,
               public orderSystemService: OrderSystemService) {
 
   }
@@ -63,9 +66,55 @@ export class ListComponent implements OnInit {
     });
   }
 
+  delete(x, schema) {
+    x.created_by = this.userService.cId();
+    x.schema = schema.object;
+    this.orderSystemService.delete(x).subscribe((res: any) => {
+        // tslint:disable-next-line:triple-equals
+        if (res.status == 'success') {
+          this.$subject[this.schema.object] = this.orderSystemService.getAll(this.object, this.schema);
+          this.alertService.success(res.msg);
+        } else {
+          this.alertService.error(res.msg);
+        }
+    });
+  }
+
   viewMe(x) {
     this.formView = x;
     this.orderSystemService.getItems(this.formView, this.schema);
+    // tslint:disable-next-line:triple-equals
+    if (this.schema.object == 'sale') {
+      this.ViewFormBtn = ['print', 'print-packing'];
+    } else {
+      this.ViewFormBtn = ['print'];
+    }
+
   }
+
+  deleteMe(x) {
+    this.formView = x;
+    this.orderSystemService.getItems(this.formView, this.schema);
+    this.ViewFormBtn = ['delete'];
+  }
+
+  stockInMe(x) {
+    this.formView = x;
+    this.orderSystemService.getItems(this.formView, this.schema);
+    this.ViewFormBtn = ['stockin'];
+  }
+
+  GotoPrint(formView) {
+    const url = '/home/order-system/' + this.schema.object + '/print';
+    this.orderSystemService.printObject = formView;
+    this.router.navigate([url] );
+  }
+
+  GotoPrintPakingSlip(formView) {
+    const url = '/home/order-system/' + this.schema.object + '/print-packing';
+    this.orderSystemService.printObject = formView;
+    this.router.navigate([url] );
+  }
+
 
 }

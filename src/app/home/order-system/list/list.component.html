@@ -79,7 +79,12 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click) ="Me[schema.stock.fn](formView, schema)" *ngIf="ViewFormBtn.includes('stockout')">Stock Out</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click) ="Me[schema.stock.fn](formView, schema)" *ngIf="ViewFormBtn.includes('stockin')">Stock In</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" *ngIf="ViewFormBtn.includes('delete')" (click) ="delete(formView, schema)">Delete</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click) ="GotoPrintPakingSlip(formView)" *ngIf="ViewFormBtn.includes('print-packing')">Print Packing Slip</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click) ="GotoPrint(formView)" *ngIf="ViewFormBtn.includes('print')">Print</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -131,9 +136,13 @@
               <td style="padding:0">
                 <div class="actionIcon">
                   <i class="fa fa-info-circle" data-toggle="modal" data-target="#viewModal" (click)="viewMe(x)"></i>
-                  <i class="fa fa-edit" data-toggle="modal" data-target="#editModal" (click)="editMe(x)"></i>
-                  <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal" (click)="deleteMe(x)"></i>
-                  <ng-container *ngIf="x.status == 'init'"><button class="btn btn-sm btn-success" (click)="Me[schema.stock.fn](x, schema)">{{ schema.stock.name }}</button></ng-container>
+                  <ng-container *ngIf="x.status != 'deleted'">
+                    <i class="fa fa-edit" data-toggle="modal" data-target="#editModal" (click)="editMe(x)"></i>
+                    <i class="fa fa-trash" data-toggle="modal" data-target="#viewModal" (click)="deleteMe(x)"></i>
+                  </ng-container>
+                  <ng-container *ngIf="x.status == 'init' && schema.stock != false">
+                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#viewModal" (click)="stockInMe(x)">{{ schema.stock.name }}</button>
+                  </ng-container>
                 </div>
               </td>
             </tr>

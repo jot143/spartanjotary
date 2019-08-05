@@ -213,3 +213,64 @@ a{
 .sidebar > .nav .nav-item:not(.hover-open) .collapse .sub-menu .nav-item .nav-link::before, .sidebar > .nav .nav-item:not(.hover-open) .collapsing .sub-menu .nav-item .nav-link::before {
 	left: 10px !important;
 }
+
+
+.table.table-bordered td, .table.table-bordered th{
+  border-color: #000 !important;
+}
+.table td, .table th {
+   padding: 5px 5px !important;
+}
+
+.smalltext{
+  font-size: 0.6rem;
+}
+@media print {
+  // body * { display:none; }
+  app-print-purchase {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+   }
+}
+
+.gap30{
+  height: 30px;
+  width: 100%;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+  padding: 5px !important;
+  line-height: 1 !important;
+  vertical-align: middle;
+  border-top: 1px solid #000 !important;
+}
+
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+  border: 1px solid #000;
+}
+
+.datasheet td,.datasheet th
+{
+  vertical-align: top !important;
+}
+
+.datasheet{
+  background-color: #fff !important;
+}
+
+.table-bordered {
+  border: 1px solid #000 !important;
+}
+
+
+#printarea {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	padding: 10px;
+}

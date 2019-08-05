@@ -36,7 +36,6 @@ export class OrderSystemComponent implements OnInit, OnDestroy {
     this.activeRouteSubscriber = this.activeRoute.data.subscribe((data: any) => {
       this.object = data.object;
       this.schema = data.schema;
-      console.log(this.schema);
     });
   }
 

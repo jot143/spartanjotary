@@ -18,6 +18,11 @@ import { Damage } from './data/Damage.subject';
 import { DamageSchema } from './data/Damage.schema';
 import { DummyOrderSchema } from './data/DummyOrder.schema';
 import { DummyOrder } from './data/DummyOrder.subject ';
+import { PrintPurchaseComponent } from './print-purchase/print-purchase.component';
+import { PrintSaleComponent } from './print-sale/print-sale.component';
+import { PrintChallanoutComponent } from './print-challanout/print-challanout.component';
+import { PrintChallaninComponent } from './print-challanin/print-challanin.component';
+import { PrintPackingslipComponent } from './print-packingslip/print-packingslip.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'challanin', pathMatch: 'full'},
@@ -26,7 +31,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full'},
       { path: 'list', component: ListComponent, data: {schema: ChallaninSchema, object: Challanin}},
-      { path: 'add', component: AddComponent, data: {schema: ChallaninSchema, object: Challanin}, }
+      { path: 'add', component: AddComponent, data: {schema: ChallaninSchema, object: Challanin}},
+      { path: 'print', component: PrintChallaninComponent, data: {schema: ChallaninSchema}},
     ]
   },
   { path: 'challanout', component: OrderSystemComponent,
@@ -34,7 +40,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full'},
       { path: 'list', component: ListComponent, data: {schema: ChallanoutSchema, object: Challanout}},
-      { path: 'add', component: AddComponent, data: {schema: ChallanoutSchema, object: Challanout}, }
+      { path: 'add', component: AddComponent, data: {schema: ChallanoutSchema, object: Challanout}},
+      { path: 'print', component: PrintChallanoutComponent, data: {schema: ChallanoutSchema}},
     ]
   },
   { path: 'sale', component: OrderSystemComponent,
@@ -42,7 +49,9 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full'},
       { path: 'list', component: ListComponent, data: {schema: SaleSchema, object: Sale}},
-      { path: 'add', component: AddComponent, data: {schema: SaleSchema, object: Sale}, }
+      { path: 'add', component: AddComponent, data: {schema: SaleSchema, object: Sale}},
+      { path: 'print', component: PrintSaleComponent, data: {schema: SaleSchema}},
+      { path: 'print-packing', component: PrintPackingslipComponent, data: {schema: SaleSchema}},
     ]
   },
   { path: 'purchase', component: OrderSystemComponent,
@@ -50,7 +59,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full'},
       { path: 'list', component: ListComponent, data: {schema: PurchaseSchema, object: Purchase}},
-      { path: 'add', component: AddComponent, data: {schema: PurchaseSchema, object: Purchase}, }
+      { path: 'add', component: AddComponent, data: {schema: PurchaseSchema, object: Purchase}},
+      { path: 'print', component: PrintPurchaseComponent, data: {schema: PurchaseSchema}},
     ]
   },
   { path: 'damage', component: OrderSystemComponent,

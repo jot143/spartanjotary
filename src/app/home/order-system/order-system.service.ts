@@ -13,6 +13,8 @@ export class OrderSystemService {
   subjects: any;
   $subjects: any;
 
+  printObject: any = null;
+
   constructor(public productService: ProductService,
               public personService: PersonService,
               public inventoryService: InventoryService,
@@ -20,6 +22,7 @@ export class OrderSystemService {
               public restapi: RestApiService) { }
 
   autocomplete(form, matches = [{key: 'name', typeof: 'string'}]) {
+    console.log(form);
     form.searchList = [];
     if (form.typing === '') {
       return;
@@ -64,6 +67,7 @@ export class OrderSystemService {
   }
 
   getDetailofAutoComplete(field, id, obj = {}) {
+     console.log(field);
      const res = field.from.value.split('.');
      const serviceName = res[0];
      const serviceProperty = res[1];
@@ -75,13 +79,18 @@ export class OrderSystemService {
        if (x.id == id) {
         const key = field.key + '_detail';
         obj[key] = x;
-        return field.callback(x, field);
+        // const ret = field.callback(x, field);
+        // tslint:disable-next-line:triple-equals
+        // if (typeof ret == 'undefined') {
+        return field.viewCallback(x);
+        // }
+        // return ret;
        }
      }
   }
 
   getNameOfAutoComplete(field, id, obj) {
-    // console.log("name", field, id);
+    console.log(field);
     const res = field.from.value.split('.');
     const serviceName = res[0];
     const serviceProperty = res[1];
@@ -134,5 +143,9 @@ export class OrderSystemService {
 
   stockOut(x) {
     return this.restapi.update('/?object=orderSystem&action=stockout', x);
+  }
+
+  delete(x) {
+    return this.restapi.update('/?object=orderSystem&action=delete', x);
   }
 }

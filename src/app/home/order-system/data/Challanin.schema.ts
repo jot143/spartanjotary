@@ -23,7 +23,7 @@ export const ChallaninSchema: any = {
       type: 'autocomplete',
       typing: '',
       searchList: [],
-      searchListCallback: (x) => {
+      viewCallback: (x) => {
         return x.name + '| Address: ' + x.street + ' ' + x.city + ' ' + x.state;
       },
       matches: [{ key: 'name', typeof: 'string' }],
@@ -31,7 +31,7 @@ export const ChallaninSchema: any = {
         form.value = x.id;
         form.searchList = [];
         form.typing = x.name + '| Address: ' + x.street + ' ' + x.city + ' ' + x.state;
-        form.valuefull = x;
+        form.valuefull = Object.assign({}, x);
       },
       from: {
         type: 'service',
@@ -102,10 +102,10 @@ export const ChallaninSchema: any = {
           matches: [{ key: 'name', typeof: 'string' }, { key: 'sku', typeof: 'string' }],
           typing: '',
           searchList: [],
-          searchListCallback: (x) => productStr(x),
+          viewCallback: (x) => productStr(x),
           callback: (x, form) => {
             form.value = x.id;
-            form.valuefull = x;
+            form.valuefull = Object.assign({}, x);
             form.searchList = [];
             form.typing = productStr(x);
           },
@@ -165,7 +165,8 @@ export const ChallaninSchema: any = {
                 return;
               }
             }
-            parent.items.value.push(x);
+            const obj = Object.assign({}, x);
+            parent.items.value.push(obj);
           }
         }
       },
@@ -200,7 +201,7 @@ export const ChallaninSchema: any = {
               type: 'service',
               value: 'personService.persons',
             },
-            callback: (res: any) => {
+            viewCallback: (res: any) => {
               return res.name + ' | Address: ' + res.street + ' ' + res.city + ' ' + res.state;
             }
           };
@@ -216,11 +217,17 @@ export const ChallaninSchema: any = {
       name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
         type: 'service',
         value: 'userService.subjects'
-      }, callback: (x: any) => {
+      }, viewCallback: (x: any) => {
         return x.name;
       }
     },
-    { name: 'Status', key: 'status', type: 'enum', values: { init: { name: 'Initialize' }, stockin: { name: 'Stock In' } } },
+    { name: 'Status', key: 'status', type: 'enum',
+      values: {
+        init: { name: 'Initialize' },
+        stockin: { name: 'Stock In' },
+        deleted: { name: 'Deleted' }
+      }
+    },
     { name: 'Date & Time', key: 'created_datetime', type: 'normal' },
     {
       name: 'List of Products',
@@ -237,7 +244,7 @@ export const ChallaninSchema: any = {
           },
           value: '',
           valuefull: '',
-          callback: (x) => productStr(x),
+          viewCallback: (x) => productStr(x),
         },
         {
           name: 'Code',

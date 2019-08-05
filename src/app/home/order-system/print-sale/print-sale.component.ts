@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { OrderSystemService } from '../order-system.service';
 
 @Component({
-  selector: 'app-print-purchase',
-  templateUrl: './print-purchase.component.html',
-  styleUrls: ['./print-purchase.component.scss']
+  selector: 'app-print-sale',
+  templateUrl: './print-sale.component.html',
+  styleUrls: ['./print-sale.component.scss']
 })
-export class PrintPurchaseComponent implements OnInit {
+export class PrintSaleComponent implements OnInit {
+
   activeRouteSubscriber: any;
   object: any;
   schema: any;

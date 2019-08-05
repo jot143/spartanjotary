@@ -11,7 +11,7 @@ import { ProductsModule } from './home/products/products.module';
 import { FormsModule } from '@angular/forms';
 import { PersonsModule } from './home/persons/persons.module';
 import { InventoryModule } from './home/inventory/inventory.module';
-
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { InventoryModule } from './home/inventory/inventory.module';
     FormsModule,
     HttpClientModule,
     ProductsModule,
-    InventoryModule,
+    InventoryModule, CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -21,7 +21,7 @@ export const PurchaseSchema: any = {
       type: 'autocomplete',
       typing: '',
       searchList: [],
-      searchListCallback: (x) => {
+      viewCallback: (x) => {
         return x.name + '| Address: ' + x.street + ' ' + x.city + ' ' + x.state;
       },
       callback: (x, form) => {
@@ -166,7 +166,7 @@ export const PurchaseSchema: any = {
           matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
           typing: '',
           searchList: [],
-          searchListCallback: (x) => productStr(x),
+          viewCallback: (x) => productStr(x),
           callback: (x, form) => {
             form.value = x.id;
             form.valuefull = x;
@@ -312,7 +312,7 @@ export const PurchaseSchema: any = {
                           type: 'service',
                           value: 'personService.persons'
                         },
-                        callback: (res: any) => {
+                        viewCallback: (res: any) => {
                           return res.name + ' | Address: ' + res.street + ' ' + res.city + ' ' + res.state;
                         }
                       };
@@ -336,10 +336,11 @@ export const PurchaseSchema: any = {
       type: 'service',
       value: 'userService.subjects',
 
-    }, callback: (x: any) => {
+    }, viewCallback: (x: any) => {
       return x.name;
     }},
-    {name: 'Status', key: 'status', type: 'enum', values: {init: {name: 'Initialize'}, stockin: {name: 'Stock In'}}},
+    {name: 'Status', key: 'status', type: 'enum',
+    values: {init: {name: 'Initialize'}, stockin: {name: 'Stock In'}, deleted: { name: 'Deleted' }}},
     {name: 'Date & Time', key: 'created_datetime', type: 'normal'},
     { name: 'List of Products',
       key: 'items',
@@ -355,7 +356,7 @@ export const PurchaseSchema: any = {
             },
             value: '',
             valuefull: '',
-            callback: (x) => productStr(x),
+            viewCallback: (x) => productStr(x),
           },
           {
             name: 'Code',

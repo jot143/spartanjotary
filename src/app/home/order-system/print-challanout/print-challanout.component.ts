@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { OrderSystemService } from '../order-system.service';
 
 @Component({
-  selector: 'app-print-purchase',
-  templateUrl: './print-purchase.component.html',
-  styleUrls: ['./print-purchase.component.scss']
+  selector: 'app-print-challanout',
+  templateUrl: './print-challanout.component.html',
+  styleUrls: ['./print-challanout.component.scss']
 })
-export class PrintPurchaseComponent implements OnInit {
+export class PrintChallanoutComponent implements OnInit {
+
   activeRouteSubscriber: any;
   object: any;
   schema: any;
@@ -55,16 +55,12 @@ export class PrintPurchaseComponent implements OnInit {
         x.gst = x.igst = (x.igst_percent * x.amount_aft_discount / 100).toFixed(2);
       }
 
-      x.total_amount = (x.amount_aft_discount + x.gst).toFixed(2);
+      x.total_amount = x.amount_aft_discount + x.gst;
 
-      order.gst += Number(x.gst);
-      order.taxable_amount += Number(x.amount_aft_discount);
-      order.total += Number(x.total_amount);
+      order.gst += x.gst;
+      order.taxable_amount += x.amount_aft_discount;
+      order.total += x.total_amount;
     }
-
-    order.gst = Math.round(order.gst);
-    order.taxable_amount = Math.round(order.taxable_amount);
-    order.total = Math.round(order.total);
   }
 
 }

@@ -1,7 +1,7 @@
 <div id="printarea"  style="margin: auto; display: flex; flex-direction: column;">
   <div class="flexhead">
     <div style="flex: 1; text-align: center; font-weight: 800; font-size: 18px;">
-      PURCHASE ORDER
+      Challan In
     </div>
     <div style="display: flex; padding: 5px 0; align-items:center; border: 1px solid #000">
       <div style="flex: 1;">
@@ -114,7 +114,9 @@
 
       <tr class="datasheet odd gradeX" style='height:35px' *ngFor="let x of order.items; let i = index">
         <td>{{ i+1  }}</td>
-        <td>{{ x.product_id_detail.sku }}</td>
+        <td>{{ x.product_id_detail.sku }}<br />
+          <span style="font-size: 11px; font-weight: 600;"></span>
+        </td>
         <td style="font-size: 12px;">
             {{ x.product_id_detail.name }}<br />
           <strong>HSN: </strong>{{ x.product_id_detail.hsn }}<br />

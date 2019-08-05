@@ -25,7 +25,7 @@ export const DamageSchema: any = {
           type: 'autocomplete',
           typing: '',
           searchList: [],
-          searchListCallback: (x) => productStr(x),
+          viewCallback: (x) => productStr(x),
           matches: [{key: 'name', typeof: 'string'}, {key: 'sku', typeof: 'string'}],
           callback: (x, form) => {
             form.value = x.id;
@@ -116,10 +116,11 @@ export const DamageSchema: any = {
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'
-    }, callback: (x: any) => {
+    }, viewCallback: (x: any) => {
       return x.name;
     }},
-    {name: 'Status', key: 'status', type: 'enum', values: {init: {name: 'Initialize'}, stockout: {name: 'Stock Out'}}},
+    {name: 'Status', key: 'status', type: 'enum',
+    values: {init: {name: 'Initialize'}, stockout: {name: 'Stock Out'}, deleted: { name: 'Deleted' }}},
     {name: 'Date & Time', key: 'created_datetime', type: 'normal'},
     { name: 'List of Products',
       key: 'items',
@@ -135,7 +136,7 @@ export const DamageSchema: any = {
             },
             value: '',
             valuefull: '',
-            callback: (x) => productStr(x),
+            viewCallback: (x) => productStr(x),
           },
           {
             name: 'Code',
