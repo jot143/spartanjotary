@@ -22,97 +22,10 @@
                           </div-->
         <h4 style="text-align: center;"><strong>GSTIN: 03ACSFS4118B1ZD</strong></h4>
       </div>
-      <table width="100% flex-1" class="table table-striped table-bordered table-hover" style="margin: 0;">
-        <tr>
-          <td style="width: 40%;" rowspan="4">
-            <div style="line-height: 20px;">
-              <strong>Details of Recevier(Billed To):</strong><br />
-              <ng-container *ngIf="order.type == 'company'">
-                {{ order.person_id_detail.name }} <br />
-                {{ order.person_id_detail.street }} {{ order.person_id_detail.city }} <br />
-                {{ order.person_id_detail.state }} {{ order.person_id_detail.country }} <br />
-                <strong>GSTIN: {{ order.person_id_detail.gstin }}</strong>
-                <br />
-                Contact No: {{ order.person_id_detail.mobile }}<br />
-              </ng-container>
-              <ng-container *ngIf="this.order.type == 'person'">
-                {{ order.name }}
-              </ng-container>
-            </div>
 
-          </td>
-          <td style="width: 30%;">
-            <div>
-              <strong style="font-weight: 800;">Invoice No: </strong><strong>{{ order.purchase_ref }}</strong>
-            </div>
-          </td>
-          <td style="width: 30%;">
-            <div>
-              <strong>Transport Mode: {{ order.transport_mode }}</strong>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <strong>Invoice Date:</strong> {{ order.created_datetime }} </td>
-          <td>
-            <strong>Transport:</strong> {{ order.created_datetime }} </td>
-        </tr>
-        <tr>
-          <td>
-            <strong>Invoice Time:</strong> {{ order.created_datetime }} </td>
-          <td>
-            <strong>Transport Time:</strong> {{ order.created_datetime }} </td>
-
-        </tr>
-        <tr>
-          <td>
-            <strong>Packing Slip No:</strong> {{ order.id }} </td>
-          <td>
-            <strong>Gr No:</strong> {{ order.gr_no }} </td>
-
-        </tr>
-        <tr>
-          <td rowspan="3">
-            <div style="line-height: 20px;">
-              <strong>Details of Consigee(Shipped To):</strong><br />
-              <ng-container *ngIf="order.type == 'company'">
-                {{ order.person_id_detail.name }} <br />
-                {{ order.person_id_detail.street }} {{ order.person_id_detail.city }} <br />
-                {{ order.person_id_detail.state }} {{ order.person_id_detail.country }} <br />
-                <strong>GSTIN: {{ order.person_id_detail.gstin }}</strong>
-                <br />
-                Contact No: {{ order.person_id_detail.mobile }}<br />
-
-              </ng-container>
-              <ng-container *ngIf="this.order.type == 'person'">
-                {{ order.name }}
-              </ng-container>
-            </div>
-          </td>
-          <td>
-            <strong>Tax is payable on Reverse charge: </strong>No
-          </td>
-          <td>
-            <strong>Gr Date:</strong> {{ order.gr_date }} </td>
-
-        </tr>
-        <tr>
-          <td>
-            <strong>No of Cases: </strong> {{ order.cases }} </td>
-          <td>
-            <strong>Through: </strong> {{ order.through }} </td>
-
-        </tr>
-        <tr>
-          <td>
-            <strong>Order No:</strong> {{ order.id }} </td>
-          <td>
-            <strong>Place of supply: </strong> {{ order.ship_to }} </td>
-        </tr>
-      </table>
       <!-- -->
     </div>
+    <strong><h3 style="text-align: center">Damage Report No. {{ order.id }}</h3></strong>
     <div style="flex:1;">
       <table class="table table-striped table-bordered table-hover" style="margin: 0;width: 100%; height: 100%;">
         <tr style="height: 35px;">

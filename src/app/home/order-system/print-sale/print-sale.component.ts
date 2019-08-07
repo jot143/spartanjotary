@@ -37,7 +37,8 @@ export class PrintSaleComponent implements OnInit {
   filterOrder(order) {
     order.taxable_amount = 0;
     order.total = 0;
-    order.gst = 0;
+    order.sgst = order.cgst = order.igst = order.gst = 0;
+
     for (const x of order.items) {
       x.amount = x.price * x.quantity;
       x.discount = (x.amount * x.discount_percent / 100).toFixed(2);
@@ -56,6 +57,13 @@ export class PrintSaleComponent implements OnInit {
       }
 
       x.total_amount = (x.amount_aft_discount + x.gst).toFixed(2);
+
+      order.sgst_percent = 6;
+      order.cgst_percent = 6;
+      order.igst_percent = 0;
+      order.sgst += Number(x.sgst);
+      order.cgst += Number(x.cgst);
+      order.igst += Number(x.igst);
 
       order.gst += Number(x.gst);
       order.taxable_amount += Number(x.amount_aft_discount);

@@ -79,7 +79,7 @@ export const SaleSchema: any = {
       order: 4
     },
     purchase_ref: {
-      name: 'Purchase Ref No',
+      name: 'Invoice No',
       type: 'text',
       default: '',
       value: '',
@@ -113,8 +113,8 @@ export const SaleSchema: any = {
     contact_person: {
       name: 'Contact Person',
       type: 'text',
-      default: 'After Delivery',
-      value: 'After Delivery',
+      default: 'Prabhdeep Singh Nijjar',
+      value: 'Prabhdeep Singh Nijjar',
       order: 8
     },
     bill_to: {

@@ -22,7 +22,6 @@ export class OrderSystemService {
               public restapi: RestApiService) { }
 
   autocomplete(form, matches = [{key: 'name', typeof: 'string'}]) {
-    console.log(form);
     form.searchList = [];
     if (form.typing === '') {
       return;
@@ -67,7 +66,6 @@ export class OrderSystemService {
   }
 
   getDetailofAutoComplete(field, id, obj = {}) {
-     console.log(field);
      const res = field.from.value.split('.');
      const serviceName = res[0];
      const serviceProperty = res[1];
@@ -90,7 +88,6 @@ export class OrderSystemService {
   }
 
   getNameOfAutoComplete(field, id, obj) {
-    console.log(field);
     const res = field.from.value.split('.');
     const serviceName = res[0];
     const serviceProperty = res[1];

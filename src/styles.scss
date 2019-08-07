@@ -234,6 +234,51 @@ a{
     right: 0;
     bottom: 0;
     background: #fff;
+  }
+
+  app-print-sale {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+   }
+
+   app-print-packingslip {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+   }
+
+   app-print-challanin {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+   }
+
+   app-print-challanout {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+   }
+
+   app-print-damage {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
    }
 }
 
@@ -273,4 +318,9 @@ a{
 	flex-direction: column;
 	background: #fff;
 	padding: 10px;
+}
+
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+	background-color: #f9f9f9;
 }

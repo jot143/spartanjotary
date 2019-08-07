@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderSystemService } from '../order-system.service';
 
 @Component({
-  selector: 'app-print-challanin',
-  templateUrl: './print-challanin.component.html',
-  styleUrls: ['./print-challanin.component.scss']
+  selector: 'app-print-damage',
+  templateUrl: './print-damage.component.html',
+  styleUrls: ['./print-damage.component.scss']
 })
-export class PrintChallaninComponent implements OnInit {
+export class PrintDamageComponent implements OnInit {
 
   activeRouteSubscriber: any;
   object: any;
@@ -30,8 +30,6 @@ export class PrintChallaninComponent implements OnInit {
       this.router.navigate(['']);
     } else {
       console.log(this.order);
-     // this.filterOrder(this.order);
     }
   }
-
 }

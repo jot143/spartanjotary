@@ -99,15 +99,15 @@ export const PurchaseSchema: any = {
     contact_person: {
       name: 'Contact Person',
       type: 'text',
-      default: 'After Delivery',
-      value: 'After Delivery',
+      default: 'Prabhdeep Singh Nijjar',
+      value: 'Prabhdeep Singh Nijjar',
       order: 7
     },
     payment_terms: {
       name: 'Payment Term`s',
       type: 'text',
-      default: 'Prabhdeep Singh Nijjar',
-      value: 'Prabhdeep Singh Nijjar',
+      default: 'After Delivery',
+      value: 'After Delivery',
       order: 8
     },
     ship_to: {

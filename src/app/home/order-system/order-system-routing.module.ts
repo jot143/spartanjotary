@@ -23,6 +23,7 @@ import { PrintSaleComponent } from './print-sale/print-sale.component';
 import { PrintChallanoutComponent } from './print-challanout/print-challanout.component';
 import { PrintChallaninComponent } from './print-challanin/print-challanin.component';
 import { PrintPackingslipComponent } from './print-packingslip/print-packingslip.component';
+import { PrintDamageComponent } from './print-damage/print-damage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'challanin', pathMatch: 'full'},
@@ -68,7 +69,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full'},
       { path: 'list', component: ListComponent, data: {schema: DamageSchema, object: Damage}},
-      { path: 'add', component: AddComponent, data: {schema: DamageSchema, object: Damage}, }
+      { path: 'add', component: AddComponent, data: {schema: DamageSchema, object: Damage}},
+      { path: 'print', component: PrintDamageComponent, data: {schema: DamageSchema}},
     ]
   },
   { path: 'dummyorder', component: OrderSystemComponent,
@@ -76,7 +78,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'list', pathMatch: 'full'},
       { path: 'list', component: ListComponent, data: {schema: DummyOrderSchema, object: DummyOrder}},
-      { path: 'add', component: AddComponent, data: {schema: DummyOrderSchema, object: DummyOrder}, }
+      { path: 'add', component: AddComponent, data: {schema: DummyOrderSchema, object: DummyOrder}}
     ]
   }
 ];

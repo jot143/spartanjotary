@@ -15,6 +15,7 @@ import { PrintPackingslipComponent } from './print-packingslip/print-packingslip
 import { PrintChallaninComponent } from './print-challanin/print-challanin.component';
 import { PrintChallanoutComponent } from './print-challanout/print-challanout.component';
 import { PrintSaleComponent } from './print-sale/print-sale.component';
+import { PrintDamageComponent } from './print-damage/print-damage.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PrintSaleComponent } from './print-sale/print-sale.component';
     PrintPackingslipComponent,
     PrintChallaninComponent,
     PrintChallanoutComponent,
-    PrintSaleComponent
+    PrintSaleComponent,
+    PrintDamageComponent
   ],
   imports: [
     CommonModule,
