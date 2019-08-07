@@ -8,7 +8,7 @@ import { RestApiService } from './rest-api.service';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     apiUrl = '';
-    private currentUserSubject: BehaviorSubject<User>;
+    public currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
     constructor(private restapi: RestApiService) {
