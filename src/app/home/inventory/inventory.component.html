@@ -84,6 +84,10 @@
           <div class="page-header">
             <h4 class="page-title">Inventry</h4>
           </div>
+          <div style="padding:15px">
+              <input type="text" id="search" (keyup)="search()" placeholder="Search for names..">
+              <button style="margin-left: 10px; float:right" class="btn btn-md btn-success" (click)="exportExcel()">Export</button>
+          </div>
         </div>
     </div>
 
@@ -94,7 +98,7 @@
         <div class="card-body">
           <!-- <h4 class="card-title">Hoverable Table</h4> -->
           <!-- <p class="card-description"> Add class <code>.table-hover</code> </p> -->
-          <table class="table table-hover table-bordered table-striped">
+          <table id="myTable" class="table table-hover table-bordered table-striped">
             <thead>
               <tr>
                 <th>#</th>

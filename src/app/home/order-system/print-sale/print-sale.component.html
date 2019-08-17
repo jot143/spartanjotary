@@ -169,8 +169,8 @@
       </tr>
 
       <tr style="height: 35px; font-weight: 800;">
-        <td colspan="15" style="text-align: right; font-weight: 800;"><strong>TOTAL</strong></td>
-        <td><strong style=" font-weight: 800;">{{ order.total }}</strong></td>
+        <td colspan="15" style="text-align: right; font-weight: 800;"><strong> SUB-TOTAL</strong></td>
+        <td><strong style=" font-weight: 800;">{{ order.subtotal }}</strong></td>
       </tr>
       <tr style="height: 35px;">
         <td colspan="16" style="font-size: 16px;">
@@ -201,14 +201,17 @@
             <td>Amount</td>
           </tr>
           <tr>
-            <td colspan="2">1</td>
-            <td>{{ order.cgst_percent }}</td>
+            <td colspan="2">{{ order.taxable_amount }}</td>
+            <!-- <td>{{ order.cgst_percent }}</td> -->
+            <td>-</td>
             <td>{{ order.cgst }}</td>
-            <td>{{ order.sgst_percent }}</td>
+            <!-- <td>{{ order.sgst_percent }}</td> -->
+            <td>-</td>
             <td>{{ order.sgst }}</td>
-            <td>{{ order.igst_percent }}</td>
+            <!-- <td>{{ order.igst_percent }}</td> -->
+            <td>-</td>
             <td>{{ order.igst }}</td>
-            <td>{{ order.taxable_amount }}</td>
+            <td>{{ order.gst }}</td>
           </tr>
           <tr>
             <td colspan="20" style="font-size: 16px;">

@@ -4,6 +4,8 @@ import { ProductService } from '../products/product.service';
 import { RestApiService } from 'src/core/services/rest-api.service';
 import { InventoryService } from './inventory.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
@@ -68,6 +70,35 @@ export class InventoryComponent implements OnInit {
         this.alertService.error(res.msg);
       }
     });
+  }
+
+  exportExcel() {
+    $('#myTable').tableExport({formats: ['xls', 'csv', 'txt']} );
+    $('.button-default.csv').click();
+  }
+
+  search() {
+    // Declare variables
+    const input = $('#search')[0];
+    const filter = input.value.toUpperCase();
+    const table = $('#myTable')[0];
+    const tr = table.getElementsByTagName('tr');
+
+    // Loop through all table rows, and hide those who don't match the search query
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < tr.length; i++) {
+      const td1 = tr[i].getElementsByTagName('td')[1];
+      const td2 = tr[i].getElementsByTagName('td')[2];
+      if (td1 && td2) {
+        const txtValue1 = td1.textContent || td1.innerText;
+        const txtValue2 = td2.textContent || td2.innerText;
+        if (txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = '';
+        } else {
+          tr[i].style.display = 'none';
+        }
+      }
+    }
   }
 
 }

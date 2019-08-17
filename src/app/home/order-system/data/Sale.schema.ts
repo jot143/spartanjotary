@@ -381,7 +381,7 @@ export const SaleSchema: any = {
     {name: 'Gr Number', key: 'gr_no', type: 'notimportant'},
     {name: 'Gr Date', key: 'gr_date', type: 'notimportant'},
     {name: 'Description', key: 'description', type: 'notimportant'},
-    {name: 'Discount', key: 'discount', type: 'notimportant'},
+    {name: 'Discount', key: 'discount_percent', type: 'notimportant'},
     {name: 'Created By', key: 'created_by', type: 'autocomplete', from: {
       type: 'service',
       value: 'userService.subjects'

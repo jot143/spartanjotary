@@ -1,0 +1,56 @@
+<!-- Page Title Header Ends-->
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+
+    <div class="card">
+      <h1 style="padding:15px">Compare Sale Reports</h1>
+
+      <div style="padding: 0 15px">
+          From <input name="fromdate" id="pfromdatepicker" #pfromdatepicker  data-provide="datepicker" value=""  />
+          To <input name="todate" id="ptodatepicker" #ptodatepicker  data-provide="datepicker"   value="" />
+          <br/>
+          From <input name="fromdate" id="fromdatepicker" #fromdatepicker  data-provide="datepicker" value=""  />
+          To <input name="todate" id="todatepicker" #todatepicker  data-provide="datepicker"   value="" />
+          <button style="margin-left: 10px" class="btn btn-md btn-primary" (click)="filter()">Filter</button>
+          <button style="margin-left: 10px; float:right" class="btn btn-md btn-success" (click)="exportExcel()">Export</button>
+      </div>
+
+      <div class="card-body">
+        <!-- <h4 class="card-title">Hoverable Table</h4> -->
+        <!-- <p class="card-description"> Add class <code>.table-hover</code> </p> -->
+        <ng-container *ngIf="(report.$compareSale | async) as data; else loading">
+          <div style="padding: 15px; margin-bottom: 20px; border: 1px solid #666; border-radius:5px">
+            <table id="myTable" class="table table-hover table-bordered table-striped" >
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Company</th>
+                  <th>Pre-Amount
+                      <br><p class="small">{{ report.compareSale[0].pfromdate}} - {{ report.compareSale[0].ptodate }} </p>
+                  </th>
+                  <th>
+                    Amount
+                    <br><p class="small">{{ report.compareSale[0].fromdate}} - {{ report.compareSale[0].todate }} </p>
+                  </th>
+                </tr>
+                <tr *ngFor="let sale of report.compareSale; let i = index">
+                  <td>{{ i }}</td>
+                  <td>{{ sale.buyer.name }}</td>
+                  <td>{{ sale.pamount ? sale.pamount : 0 }}</td>
+                  <td>{{ sale.amount ? sale.amount : 0}}</td>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </ng-container>
+
+        <ng-template #loading>
+          <div>Loading...</div>
+        </ng-template>
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,7 @@ import { PersonsModule } from './home/persons/persons.module';
 import { InventoryModule } from './home/inventory/inventory.module';
 import { CommonModule } from '@angular/common';
 
+
 @NgModule({
   declarations: [
     AppComponent,

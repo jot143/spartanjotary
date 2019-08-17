@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { ProductService } from '../products/product.service';
 import { InventoryService } from '../inventory/inventory.service';
 
+declare var $: any;
 @Component({
   selector: 'app-stockcheck',
   templateUrl: './stockcheck.component.html',
@@ -53,6 +54,43 @@ export class StockcheckComponent implements OnInit {
       // tslint:disable-next-line:triple-equals
       if (x.id == id) {
         return x.name;
+      }
+    }
+  }
+
+  exportExcel() {
+    $('#myTable').tableExport({formats: ['xls', 'csv', 'txt']} );
+    $('.button-default.csv').click();
+  }
+
+  search() {
+    // Declare variables
+    const input = $('#search')[0];
+    const filter = input.value.toUpperCase();
+    const table = $('#myTable')[0];
+    const tr = table.getElementsByTagName('tr');
+
+    // Loop through all table rows, and hide those who don't match the search query
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < tr.length; i++) {
+      const td1 = tr[i].getElementsByTagName('td')[1];
+      if (td1) {
+        const txtValue = td1.textContent || td1.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = '';
+        } else {
+          tr[i].style.display = 'none';
+        }
+      }
+
+      const td2 = tr[i].getElementsByTagName('td')[2];
+      if (td2) {
+        const txtValue = td2.textContent || td2.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = '';
+        } else {
+          tr[i].style.display = 'none';
+        }
       }
     }
   }
