@@ -103,6 +103,13 @@
               </div>
 
               <div class="form-group">
+                <label class="label">Purchase Price</label>
+                <div class="input-group">
+                  <input type="number" [(ngModel)]="newproduct.purchase_price" name="purchase_price" class="form-control" placeholder="Purchase Price" />
+                </div>
+              </div>
+
+              <div class="form-group">
                 <label class="label">Description</label>
                 <div class="input-group">
                   <textarea [(ngModel)]="newproduct.description" name="description" class="form-control" placeholder="Description" ></textarea>
@@ -225,6 +232,13 @@
                 <div class="input-group">
                   <input type="number" [(ngModel)]="editproduct.mrp" name="mrp" class="form-control"
                     placeholder="MRP" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="label">Purchase Price</label>
+                <div class="input-group">
+                  <input type="number" [(ngModel)]="editproduct.purchase_price" name="purchase_price" class="form-control" placeholder="Purchase Price" />
                 </div>
               </div>
 
@@ -420,6 +434,7 @@
                 <th>HSN</th>
                 <th>GST</th>
                 <th>Category</th>
+                <th>Purchase Price</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -432,6 +447,7 @@
                 <td style="width: 100px">{{ x.hsn }}</td>
                 <td style="width: 50px">{{ x.gstpercentage }}%</td>
                 <td style="font-size:12px">{{ productService.getTree(x.category_id) | async }}</td>
+                <td>{{x.purchase_price}}</td>
                 <td style="padding:0">
                   <div class="actionIcon">
                     <i class="fa fa-info-circle" data-toggle="modal" data-target="#viewModal" (click)="viewMe(x)"></i>

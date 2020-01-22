@@ -106,6 +106,9 @@
                 <th>Product</th>
                 <th>Size/Color</th>
                 <th>Quantity</th>
+                <th>MRP</th>
+                <th>DP</th>
+                <th>PP</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -117,9 +120,12 @@
                 <td style="width: 250px">{{ x.name }}</td>
                 <td style="width: 50px">{{ x.size }} {{ x.color }}</td>
                 <td style="width: 50px">{{ inventoryService.getQuantity(x.id) | async }}</td>
+                <td style="width: 50px">{{ x.mrp }}</td>
+                <td style="width: 50px">{{ x.dealprice }}</td>
+                <td style="width: 50px">{{ x.purchase_price }}</td>
                 <td style="padding:0">
                   <div class="actionIcon">
-                    <i class="fa fa-info-circle" data-toggle="modal" data-target="#viewModal" (click)="viewMe(x)"></i>
+                    <!-- <i class="fa fa-info-circle" data-toggle="modal" data-target="#viewModal" (click)="viewMe(x)"></i> -->
                     <i class="fa fa-edit" data-toggle="modal" data-target="#editModal" (click)="inventoryService.formEdit = x; inventoryService.formEdit.new_quantity = 0"></i>
                     <!-- <i class="fa fa-trash" data-toggle="modal" data-target="#deleteModal" (click)="deleteMe(x)"></i> -->
                   </div>

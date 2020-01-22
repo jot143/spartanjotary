@@ -28,7 +28,8 @@ export class ProductsComponent implements OnInit {
     hsn: '',
     gstpercentage: 0,
     dealprice: 0,
-    mrp: 0
+    mrp: 0,
+    purchase_price: 0
   };
   callback = {
     action: (x) => {
@@ -86,7 +87,7 @@ export class ProductsComponent implements OnInit {
 
     this.newproduct.mrp = Number(this.newproduct.mrp);
     this.newproduct.dealprice = Number(this.newproduct.dealprice);
-
+    this.newproduct.purchase_price = Number(this.newproduct.purchase_price);
 
     this.loaderService.start('Please Wait...', true);
     const response = this.restapi.post('/?object=product&action=add', this.newproduct);
@@ -120,7 +121,7 @@ export class ProductsComponent implements OnInit {
 
     this.editproduct.mrp = Number(this.editproduct.mrp);
     this.editproduct.dealprice = Number(this.editproduct.dealprice);
-
+    this.editproduct.purchase_price = Number(this.editproduct.purchase_price);
 
     this.loaderService.start('Please Wait...', true);
     const response = this.restapi.update('/?object=product&action=update', this.editproduct);
