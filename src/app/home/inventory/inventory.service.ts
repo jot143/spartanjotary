@@ -52,6 +52,24 @@ export class InventoryService {
       });
   }
 
+  getChangeQuantity(id) {
+    return  new Observable((observer) => {
+      // tslint:disable-next-line:variable-name
+      const search = (_id: any, _arr: any) => {
+        for (const x of _arr) {
+          if (x.product_id === _id) {
+            // tslint:disable-next-line:triple-equals
+            return x.total_quantity - x.change_in_quantity;
+          }
+        }
+        return 0;
+      };
+
+      observer.next(search(id, this.inventry));
+      observer.complete();
+    });
+}
+
   stockUpdate(product) {
     const response = this.restapi.update('/?object=inventory&action=stockupdate', product).pipe(
       map((res: any) => {
