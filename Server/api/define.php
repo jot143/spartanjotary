@@ -1,9 +1,9 @@
 <?php
 $database = [
     'host' => 'localhost',
-    'user' => 'rcubinit_world',
-    'password' => 'Qwaszx!43',
-    'database' => 'rcubinit_spartan'
+    'user' => 'root',
+    'password' => '123456',
+    'database' => 'jobtory'
 ];
 
 

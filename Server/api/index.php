@@ -1,13 +1,15 @@
 <?php
-header('Access-Control-Allow-Origin : *');
-header('Access-Control-Allow-Methods : POST, GET, OPTIONS, PUT, DELETE');
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-  header("HTTP/1.1 200 OK");
-  die();
-}
+header('Access-Control-Allow-Origin: *');
+// error_reporting(E_ALL);
+// ini_set('display_errors', "On");
 
-error_reporting(E_ALL);
-ini_set('display_errors', "On");
+// header('Access-Control-Allow-Origin : *');
+// // header('Access-Control-Allow-Methods : POST, GET, OPTIONS, PUT, DELETE');
+// if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+//   header("HTTP/1.1 200 OK");
+//   die();
+// }
+
 
 $starttime = microtime(true);
 

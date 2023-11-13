@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { AlertService, LoaderService } from '../components';
+import { catchError, map } from 'rxjs/operators';
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestApiService {
 
-  //apiUrl = 'http://localhost:3000/Server/api';
-   apiUrl = 'http://spartan.rcubinity.com/api';
+  apiUrl = 'http://jobtory.pu';
+  //  apiUrl = 'http://spartan.rcubinity.com/api';
   // apiUrl = 'http://luca.rcubinity.com/api';
   constructor(private http: HttpClient,
               public alertService: AlertService,
